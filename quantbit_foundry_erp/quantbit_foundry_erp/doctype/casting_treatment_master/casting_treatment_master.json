@@ -1,0 +1,109 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:casting_treatment",
+ "creation": "2023-11-03 11:59:52.811613",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "casting_treatment",
+  "company",
+  "default_warehouse_settings_section",
+  "ft_warehouse",
+  "column_break_brhhj",
+  "crt_warehouse",
+  "column_break_bywmo",
+  "rwt_warehouse",
+  "column_break_3mpcs",
+  "frt_warehouse"
+ ],
+ "fields": [
+  {
+   "fieldname": "casting_treatment",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Casting Treatment ",
+   "unique": 1
+  },
+  {
+   "fieldname": "default_warehouse_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Default Warehouse settings"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_bywmo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_brhhj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ft_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Default Target Warehouse For Finished Goods",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "crt_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Default CR Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "rwt_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Default RW Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "column_break_3mpcs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "frt_warehouse",
+   "fieldtype": "Link",
+   "label": "Default RW Target Warehouse",
+   "options": "Warehouse"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-04-03 14:20:57.551716",
+ "modified_by": "Administrator",
+ "module": "Quantbit Foundry ERP",
+ "name": "Casting Treatment Master",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

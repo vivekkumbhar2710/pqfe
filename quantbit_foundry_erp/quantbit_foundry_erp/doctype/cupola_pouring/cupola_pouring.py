@@ -287,6 +287,7 @@ class CupolaPouring(Document):
 			se = frappe.new_doc("Stock Entry")
 			se.stock_entry_type = "Manufacture"
 			se.company = self.company
+			se.set_posting_time = True
 			se.posting_date = self.heat_date
 			for g in self.get("change_mix_details" , filters = {"quantity" :['!=',0]}):
 				se.append(
@@ -345,6 +346,7 @@ class CupolaPouring(Document):
 			se = frappe.new_doc("Stock Entry")
 			se.stock_entry_type = "Manufacture"
 			se.company = self.company
+			se.set_posting_time = True
 			se.posting_date = self.heat_date
 			for p in self.get("change_mix_details" , filters = {"quantity" :['!=',0]}):
 				se.append(

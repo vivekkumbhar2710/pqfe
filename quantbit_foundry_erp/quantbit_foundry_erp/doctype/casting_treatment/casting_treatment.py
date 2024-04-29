@@ -249,12 +249,7 @@ class CastingTreatment(Document):
 							else:
 								total_quantity = r.required_quantity_per_unit * d.quantity
 
-
-
 						r.total_quantity = getVal(total_quantity)
-
-
-
 		self.calculate_total_weight_quentity()
 			
 
@@ -291,14 +286,18 @@ class CastingTreatment(Document):
 			qd.weight             = casting_weight * qd.total_quantity
 
 
+		self.calculating_total_sum()
+
+		self.get_rejections()
+
+	@frappe.whitelist()
+	def calculating_total_sum(self):
 		self.sum_of_total_quantity =  self.calculating_total_weight("quantity_details" ,"total_quantity")
 		self.sum_of_total_weight = self.calculating_total_weight("quantity_details" ,"weight")
 		self.sum_of_ok_quantity = self.calculating_total_weight("quantity_details" ,"ok_quantity")
 		self.sum_of_cr_quantity = self.calculating_total_weight("quantity_details" ,"cr_quantity")
 		self.sum_of_rw_quantity = self.calculating_total_weight("quantity_details" ,"rw_quantity")
 		self.sum_of_fr_quantity = self.calculating_total_weight("quantity_details" ,"fr_quantity")
-
-		self.get_rejections()
 
 	@frappe.whitelist()
 	def validate_total_quentity(self):
@@ -513,7 +512,7 @@ class CastingTreatment(Document):
 			se.company = self.company
 			se.set_posting_time = True
 			se.posting_date = self.treatment_date
-			
+			se.posting_time = self.treatment_time
 			all_core = self.get("quantity_details" ,  filters={"item_code": cd.item_code ,"ok_quantity" : ["!=",0],"reference_id" : cd.reference_id})
 			for core in all_core:
 				for g in self.get("raw_item" , filters={"item_code": cd.item_code  ,"reference_id" : cd.reference_id}):
@@ -579,6 +578,7 @@ class CastingTreatment(Document):
 		se.company = self.company
 		se.set_posting_time = True
 		se.posting_date = self.treatment_date
+		se.posting_time = self.treatment_time
 		if self.casting_treatment_without_pouring:
 			for y in self.get("pattern_casting_item"):
 				for z in self.get("rejected_items_reasons" ,filters={"item_code": y.item_code ,"reference_id":y.reference_id}):
@@ -746,10 +746,21 @@ class CastingTreatment(Document):
 									'sales_order' : None,
 									'reference_id':k.reference_id,
 									'casting_weight': k.casting_weight,
+									# 'fr_quantity' : k.quantity if self.all_goes_to_fr else 0
 					
 								},),
 
 		self.calculate_total_weight_quentity()
+
+	@frappe.whitelist()
+	def all_goes_to_fr(self):
+		pattern_casting_item = self.get('pattern_casting_item')
+		for k in pattern_casting_item:
+			quantity_details = self.get('quantity_details', filters = {'reference_id':k.reference_id})
+			for d in quantity_details:
+				d.fr_quantity = k.quantity
+		self.calculate_total_weight_quentity()
+		self.rejection_addition()
 
 	
 	@frappe.whitelist()
@@ -787,6 +798,9 @@ class CastingTreatment(Document):
 
 		for d in additional_cost_details:
 			self.append("additional_cost_details",d),
+
+
+	
 	#set available qty in child table
 	# @frappe.whitelist()
 	# def set_available_qty_in_pcidetails(self):

@@ -159,7 +159,8 @@
    "allow_on_submit": 1,
    "fieldname": "heat_no",
    "fieldtype": "Data",
-   "label": "Heat No."
+   "label": "Heat No.",
+   "unique": 1
   },
   {
    "fieldname": "section_break_uqige",
@@ -575,7 +576,7 @@
    "table_fieldname": "select_pouring"
   }
  ],
- "modified": "2024-04-03 14:20:58.436834",
+ "modified": "2024-04-15 15:20:05.704045",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Pouring",

@@ -36,7 +36,7 @@ class Pouring(Document):
 		self.calculating_power_consumption_amount()
 		self.set_datd_in_naming_fields()
 		self.validate_pattern()
-		self.validate_pattern_equality()
+		# self.validate_pattern_equality()
 		self.create_rr_item_retain_items()
 		self.validate_total_charge_mix()
 		self.calculate_normal_loss()
@@ -336,6 +336,7 @@ class Pouring(Document):
 			se.company = self.company
 			se.set_posting_time = True
 			se.posting_date = self.heat_date
+			se.posting_time = self.time
 			for g in self.get("change_mix_details" , filters = {"quantity" :['!=',0]}):
 				se.append(
 						"items",
@@ -395,6 +396,7 @@ class Pouring(Document):
 			se.company = self.company
 			se.set_posting_time = True
 			se.posting_date = self.heat_date
+			se.posting_time = self.time
 			for p in self.get("change_mix_details" , filters = {"quantity" :['!=',0]}):
 				se.append(
 						"items",
@@ -435,15 +437,21 @@ class Pouring(Document):
 			se.company = self.company
 			se.set_posting_time = True
 			se.posting_date = self.heat_date
+			se.posting_time = self.time
 			for p in self.get("change_mix_details" , filters = {"quantity" :['!=',0]}):
-				se.append(
-						"items",
-						{
-							"item_code": p.item_code,
-							"qty":  (self.normal_loss * p.quantity) / self.total_consumed_weight,
-							"s_warehouse": p.warehouse,
-						},)
+				qty = (self.normal_loss * p.quantity) / self.total_consumed_weight
+				if qty >= 0.001:
+					se.append(
+							"items",
+							{
+								"item_code": p.item_code,
+								"qty": qty ,
+								"s_warehouse": p.warehouse,
+							},)
+				# if p.quantity == 0.500:
+				# 	frappe.throw(str((self.normal_loss * p.quantity) / self.total_consumed_weight))
 			se.custom_pouring = self.name
+			
 			if se.items:	
 				se.insert()
 				se.save()
@@ -458,10 +466,9 @@ class Pouring(Document):
 			pm_rr_weight =frappe.get_value('Pattern Master',pd.pattern_code ,'rr_weight')
 			casting_weight =frappe.get_value('Pattern Master',pd.pattern_code ,'casting_weight')
 
-			for cd in self.get('casting_details'):
+			for cd in self.get('casting_details', filters = {'pattern':pd.pattern_code}):
 				if cd.short_quantity:
 					total_quantity = pd.poured_boxes * cd.quantitybox
-
 
 					cd.total_quantity = (total_quantity - int(cd.short_quantity) )
 					cd.rr_weight_total = cd.rr_weight * cd.total_quantity
@@ -485,6 +492,7 @@ class Pouring(Document):
 	def validate_pattern_equality(self):
 		pattern_details = self.get("pattern_details")
 		for  do in pattern_details:
+			do_grade_type = 0
 			for so in pattern_details:
 				if do.grade != so.grade:
 					frappe.throw(" ❌ You Can Not select pattern with different grade ❌")

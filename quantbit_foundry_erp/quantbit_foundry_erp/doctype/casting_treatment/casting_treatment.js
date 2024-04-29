@@ -147,7 +147,16 @@ frappe.ui.form.on('Casting Treatment', {
     }
 });
 
-
+frappe.ui.form.on('Casting Treatment', {
+    all_goes_to_fr: function(frm) {
+		frm.clear_table("rejected_items_reasons");
+		frm.refresh_field('rejected_items_reasons');
+        frm.call({
+			method:'all_goes_to_fr',
+			doc:frm.doc,
+		})
+    }
+});
 
 // ============================================================= Casting Treatment Quantity Details =================================================  
 

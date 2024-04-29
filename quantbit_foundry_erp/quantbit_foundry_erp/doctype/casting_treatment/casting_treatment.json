@@ -32,6 +32,7 @@
   "section_break_uqige",
   "casting_item",
   "pattern_casting_item",
+  "all_goes_to_fr",
   "section_break_xnhff",
   "column_break_lr3co",
   "column_break_ybjh6",
@@ -350,6 +351,12 @@
    "fieldname": "sum_of_fr_quantity",
    "fieldtype": "Float",
    "label": "Sum of FR Quantity"
+  },
+  {
+   "default": "0",
+   "fieldname": "all_goes_to_fr",
+   "fieldtype": "Button",
+   "label": "All Goes To FR"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -360,7 +367,7 @@
    "link_fieldname": "custom_casting_treatment"
   }
  ],
- "modified": "2024-04-03 14:20:57.815486",
+ "modified": "2024-04-15 14:33:43.411962",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Casting Treatment",

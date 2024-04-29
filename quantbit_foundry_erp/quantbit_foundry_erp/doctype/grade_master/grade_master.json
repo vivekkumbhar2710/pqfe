@@ -46,7 +46,8 @@
    "fieldname": "grade_type",
    "fieldtype": "Link",
    "label": "Grade Type",
-   "options": "Grade Type"
+   "options": "Grade Type",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_vbln4",
@@ -141,7 +142,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-04-03 14:20:57.070027",
+ "modified": "2024-04-16 11:31:30.954134",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Grade Master",

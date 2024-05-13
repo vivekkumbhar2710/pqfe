@@ -488,6 +488,9 @@ class Pouring(Document):
 			cmt_grades = set(cmt['grade'] for cmt in cmt_data)
 			if len(cmt_grades) > 1:
 				frappe.throw("❌ The pattern is faulty. Items in the pattern have different grades. Please ensure that all items have the same 'Grade'. Update the grade from the item master. ❌")
+			if i.poured_boxes < 1:
+				frappe.throw("'Poured Boxes' from  'Pattern Details' should need al least 1 quantity")
+
 
 	def validate_pattern_equality(self):
 		pattern_details = self.get("pattern_details")

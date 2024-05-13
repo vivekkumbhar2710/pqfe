@@ -1,0 +1,138 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "WCJ-.#####",
+ "creation": "2024-04-30 12:49:44.831929",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_code",
+  "column_break_xapzv",
+  "item_name",
+  "column_break_qq5qj",
+  "uom",
+  "column_break_n4ucb",
+  "current_weight",
+  "column_break_cdeyi",
+  "update_weight",
+  "column_break_1vail",
+  "status",
+  "section_break_acv4u",
+  "change_reason",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item Code",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_qq5qj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "current_weight",
+   "fieldtype": "Float",
+   "label": "Current Weight"
+  },
+  {
+   "fieldname": "column_break_cdeyi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "update_weight",
+   "fieldtype": "Float",
+   "label": "Update Weight",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_acv4u",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "change_reason",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Change Reason",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1vail",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "depends_on": "eval: doc.docstatus == 1 ;",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nApproved"
+  },
+  {
+   "default": "kg",
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "UOM",
+   "options": "UOM",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_n4ucb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "item_code.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "column_break_xapzv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Weight Change Journal",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-04-30 15:48:43.317451",
+ "modified_by": "Administrator",
+ "module": "Quantbit Foundry ERP",
+ "name": "Weight Change Journal",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

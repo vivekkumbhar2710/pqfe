@@ -1,0 +1,58 @@
+{
+ "add_total_row": 1,
+ "columns": [],
+ "creation": "2024-04-22 14:12:11.654825",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "default": "ALPHA FOUNDERS PVT LTD",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "mandatory": 1,
+   "options": "Company",
+   "wildcard_filter": 0
+  },
+  {
+   "default": "Today",
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date",
+   "mandatory": 1,
+   "options": "",
+   "wildcard_filter": 0
+  },
+  {
+   "default": "Today",
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date",
+   "mandatory": 1,
+   "options": "",
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": "",
+ "modified": "2024-05-04 15:26:11.911182",
+ "modified_by": "Administrator",
+ "module": "Quantbit Foundry ERP",
+ "name": "Casting Treatment Analysis",
+ "owner": "mayuresh.bhosale@erpdata.in",
+ "prepared_report": 0,
+ "query": "select \r\n    ct.name AS 'ID', \r\n    ct.treatment_date AS 'Treatment Date', \r\n    ct.casting_treatment AS 'Casting Treatment', \r\n    #sum_of_total_quantity AS 'Total Quantity', \r\n    #sum_of_total_weight AS 'Total Weight', \r\n    ct.contractor AS 'Contractor ID', \r\n    ct.contractor_name AS 'Contractor Name',\r\n    pc.item_code AS 'Item Code',\r\n    pc.item_name AS 'Item Name',\r\n    SUM(pc.quantity) AS 'Quantity',\r\n    SUM(pc.weight) AS 'Weight:Float:90',\r\n    pc.source_warehouse AS 'Source Warehouse',\r\n    pc.target_warehouse AS 'Target Warehouse',\r\n    ct.company AS 'Company'\r\nFROM \r\n    `tabCasting Treatment`ct\r\nLEFT JOIN\r\n     `tabCasting Treatment Pattern Casting Item` pc ON ct.name = pc.parent\r\nWHERE\r\n    ct.docstatus = '1'\r\n    AND treatment_date BETWEEN %(from_date)s AND %(to_date)s\r\n    AND ct.company = %(company)s\r\nGROUP BY\r\n    ct.name,\r\n    ct.treatment_date,\r\n    ct.casting_treatment , \r\n    ct.contractor , \r\n    ct.contractor_name,\r\n    pc.item_code,\r\n    pc.item_name,\r\n    pc.source_warehouse,\r\n    pc.target_warehouse,\r\n    ct.company\r\n",
+ "ref_doctype": "Pouring",
+ "reference_report": "Casting Treatment Analysis",
+ "report_name": "Casting Treatment Analysis",
+ "report_script": "",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ]
+}

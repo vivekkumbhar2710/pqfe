@@ -352,6 +352,30 @@ frappe.ui.form.on('Casting Treatment Rejected Items Reasons', {
 			method:'update_get_rejections',
 			doc:frm.doc,
 		});
+		frm.call({
+			method:'get_scrap_details',
+			doc:frm.doc,
+			callback:function(response){
+				if(!response.exc){
+					refresh_field(["scrap_item_name","per_unit_weight","total_weight","grade"])
+				}
+			}
+		})
 
-    }
+	   
+
+    },
+	is_scrap: function(frm){
+			frm.call({
+				method:'get_scrap_details',
+				doc:frm.doc,
+				callback:function(response){
+					if(!response.exc){
+						refresh_field(["scrap_item_name","per_unit_weight","total_weight"])
+					}
+				}
+			})
+		
+	}
 });
+

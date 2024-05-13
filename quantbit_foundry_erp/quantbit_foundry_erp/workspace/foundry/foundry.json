@@ -5,7 +5,7 @@
       "label": "Daily Casting"
      }
     ],
-    "content": "[{\"id\":\"xYx1sy3A_d\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Daily Casting\",\"col\":12}},{\"id\":\"IqEjzJ1VwZ\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"ZrN_QrW10p\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pouring\",\"col\":3}},{\"id\":\"DkKqkCzSEH\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Casting Treatment\",\"col\":3}},{\"id\":\"4B4qAj4mEX\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Production Planning\",\"col\":3}},{\"id\":\"1gxk2N3qJb\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Foundry</span>\",\"col\":12}},{\"id\":\"91En6-DQNK\",\"type\":\"card\",\"data\":{\"card_name\":\"Pattern Masters\",\"col\":4}},{\"id\":\"7_6bIZjfev\",\"type\":\"card\",\"data\":{\"card_name\":\"Entries\",\"col\":4}},{\"id\":\"YWqosbCFC1\",\"type\":\"card\",\"data\":{\"card_name\":\"Casting Treatment Master\",\"col\":4}},{\"id\":\"H0Hl7Rueao\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"uXIrgIe_sN\",\"type\":\"card\",\"data\":{\"card_name\":\"Pouring Master\",\"col\":4}},{\"id\":\"VkxkbQRQeS\",\"type\":\"card\",\"data\":{\"card_name\":\"Quality Inspection\",\"col\":4}},{\"id\":\"vk7Od5eom5\",\"type\":\"card\",\"data\":{\"card_name\":\"Foundry Settings\",\"col\":4}},{\"id\":\"7pbLBpVbBa\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports</b></span>\",\"col\":12}},{\"id\":\"f2PuZUFPEY\",\"type\":\"card\",\"data\":{\"card_name\":\"Quality Inspection Report\",\"col\":4}},{\"id\":\"xNGe0HBf4-\",\"type\":\"card\",\"data\":{\"card_name\":\"Foundry Reports\",\"col\":4}}]",
+    "content": "[{\"id\":\"xYx1sy3A_d\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Daily Casting\",\"col\":12}},{\"id\":\"IqEjzJ1VwZ\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"ZrN_QrW10p\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pouring\",\"col\":3}},{\"id\":\"DkKqkCzSEH\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Casting Treatment\",\"col\":3}},{\"id\":\"4B4qAj4mEX\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Production Planning\",\"col\":3}},{\"id\":\"1gxk2N3qJb\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Foundry</span>\",\"col\":12}},{\"id\":\"91En6-DQNK\",\"type\":\"card\",\"data\":{\"card_name\":\"Pattern Masters\",\"col\":4}},{\"id\":\"7_6bIZjfev\",\"type\":\"card\",\"data\":{\"card_name\":\"Entries\",\"col\":4}},{\"id\":\"YWqosbCFC1\",\"type\":\"card\",\"data\":{\"card_name\":\"Casting Treatment Master\",\"col\":4}},{\"id\":\"H0Hl7Rueao\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"uXIrgIe_sN\",\"type\":\"card\",\"data\":{\"card_name\":\"Pouring Master\",\"col\":4}},{\"id\":\"VkxkbQRQeS\",\"type\":\"card\",\"data\":{\"card_name\":\"Quality Inspection\",\"col\":4}},{\"id\":\"vk7Od5eom5\",\"type\":\"card\",\"data\":{\"card_name\":\"Foundry Settings\",\"col\":4}},{\"id\":\"7pbLBpVbBa\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports</b></span>\",\"col\":12}},{\"id\":\"f2PuZUFPEY\",\"type\":\"card\",\"data\":{\"card_name\":\"Quality Inspection Report\",\"col\":4}},{\"id\":\"0mTNrKsB2g\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
     "creation": "2023-11-04 18:12:32.854958",
     "custom_blocks": [],
     "docstatus": 0,
@@ -281,7 +281,7 @@
       "hidden": 0,
       "is_query_report": 0,
       "label": "Entries",
-      "link_count": 5,
+      "link_count": 7,
       "link_type": "DocType",
       "onboard": 0,
       "type": "Card Break"
@@ -339,314 +339,54 @@
      {
       "hidden": 0,
       "is_query_report": 0,
-      "label": "Foundry Reports",
-      "link_count": 30,
+      "label": "Foundry Casting Conversion",
+      "link_count": 0,
+      "link_to": "Material Conversion",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+     },
+     {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "CUST/SUB Rej Analysis",
+      "link_count": 0,
+      "link_to": "Machine Shop Rejection Analysis",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+     },
+     {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Reports",
+      "link_count": 2,
       "link_type": "DocType",
       "onboard": 0,
       "type": "Card Break"
      },
      {
       "hidden": 0,
-      "is_query_report": 0,
-      "label": "Pouring Entry Details",
+      "is_query_report": 1,
+      "label": "Casting Treatment Analysis",
       "link_count": 0,
-      "link_to": "Pouring Entry Details",
+      "link_to": "Casting Treatment Analysis",
       "link_type": "Report",
       "onboard": 0,
       "type": "Link"
      },
      {
       "hidden": 0,
-      "is_query_report": 0,
-      "label": "Casting Production",
+      "is_query_report": 1,
+      "label": "Contractor Wise Pouring Details",
       "link_count": 0,
-      "link_to": "Casting Production",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Stage Wise Inventory Balance",
-      "link_count": 0,
-      "link_to": "Stage Wise Inventory Balance",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Moulding Sand Testing Report 1.0",
-      "link_count": 0,
-      "link_to": "Moulding Sand Testing Report 1.0",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Daily Spectro Analysis Report",
-      "link_count": 0,
-      "link_to": "Daily Spectro Analysis Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Daily Hardness Report 1.0",
-      "link_count": 0,
-      "link_to": "Daily Hardness Report 1.0",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Daily Weight Review",
-      "link_count": 0,
-      "link_to": "Daily Weight Review",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Attempt 002",
-      "link_count": 0,
-      "link_to": "Attempt 002",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Fettling Report",
-      "link_count": 0,
-      "link_to": "Fettling Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Short Blasting Report",
-      "link_count": 0,
-      "link_to": "Short Blasting Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "RR Report",
-      "link_count": 0,
-      "link_to": "RR Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Pattern Master Report",
-      "link_count": 0,
-      "link_to": "Pattern Master Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Furnace Wise Production Report",
-      "link_count": 0,
-      "link_to": "Furnace Wise Production Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Electricity Consumption  and Cost Report",
-      "link_count": 0,
-      "link_to": "Electricity Consumption  and Cost Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Core Consumption Report",
-      "link_count": 0,
-      "link_to": "Core Consumption Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Rejection Analysis in Casting Treatment",
-      "link_count": 0,
-      "link_to": "Rejection Analysis in Casting Treatment",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Production Summary Per Month With Nos And Weight",
-      "link_count": 0,
-      "link_to": "Production Summary Per Month With Nos And Weight",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Shift Wise Production Report",
-      "link_count": 0,
-      "link_to": "Shift Wise Production Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Grade Wise Production Report",
-      "link_count": 0,
-      "link_to": "Grade Wise Production Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Knock Out Report",
-      "link_count": 0,
-      "link_to": "Knock Out Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Casting Treatment Consumption Report",
-      "link_count": 0,
-      "link_to": "Casting Treatment Consumption Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Operator Wise Production  Casting Treatment",
-      "link_count": 0,
-      "link_to": "Operator Wise Production  Casting Treatment",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Operator Wise Production of Pouring",
-      "link_count": 0,
-      "link_to": "Operator Wise Production of Pouring",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Supervisor Wise Production  Casting Treatment",
-      "link_count": 0,
-      "link_to": "Supervisor Wise Production  Casting Treatment",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Operator Wise Production of Pouring",
-      "link_count": 0,
-      "link_to": "Operator Wise Production of Pouring",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Supervisor Wise Production  Casting Treatment",
-      "link_count": 0,
-      "link_to": "Supervisor Wise Production  Casting Treatment",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Raw Casting Material Consumption Report",
-      "link_count": 0,
-      "link_to": "Raw Casting Material Consumption Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Raw Casting Material Consumption Report",
-      "link_count": 0,
-      "link_to": "Raw Casting Material Consumption Report",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Pouring Rejection Report With Date Range",
-      "link_count": 0,
-      "link_to": "Pouring Rejection Report With Date Range",
-      "link_type": "Report",
-      "onboard": 0,
-      "type": "Link"
-     },
-     {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Attempt 001",
-      "link_count": 0,
-      "link_to": "Attempt 001",
+      "link_to": "Contractor Wise Pouring Details",
       "link_type": "Report",
       "onboard": 0,
       "type": "Link"
      }
     ],
-    "modified": "2024-04-15 15:57:43.630216",
+    "modified": "2024-05-06 14:34:38.241752",
     "modified_by": "mayuresh.bhosale@erpdata.in",
     "module": "Quantbit Foundry ERP",
     "name": "Foundry",

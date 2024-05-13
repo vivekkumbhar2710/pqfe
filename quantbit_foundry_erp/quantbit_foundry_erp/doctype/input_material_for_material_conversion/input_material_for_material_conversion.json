@@ -14,7 +14,8 @@
   "warehouse",
   "available_quantity",
   "weight_per_unit",
-  "total_weight"
+  "total_weight",
+  "posting_date"
  ],
  "fields": [
   {
@@ -66,12 +67,17 @@
    "fieldname": "total_weight",
    "fieldtype": "Float",
    "label": "Total Weight"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-03-07 14:50:16.150427",
+ "modified": "2024-05-13 11:43:09.998086",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Input Material For Material Conversion",

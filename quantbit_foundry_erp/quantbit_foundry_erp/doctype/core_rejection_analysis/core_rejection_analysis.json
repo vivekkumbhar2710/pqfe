@@ -1,0 +1,205 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-05-04 10:21:13.789152",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "column_break_wyeps",
+  "column_break_p7j7p",
+  "column_break_pyzj8",
+  "column_break_iva7a",
+  "section_break_whwpi",
+  "company",
+  "column_break_ol9gk",
+  "transaction_date",
+  "column_break_urxlh",
+  "core_warehouse",
+  "column_break_hfqns",
+  "column_break_r9jvo",
+  "section_break_4wngs",
+  "supervisor_id",
+  "column_break_7lhru",
+  "supervisor_name",
+  "column_break_9sxom",
+  "operator_id",
+  "column_break_sk3ns",
+  "operator_name",
+  "column_break_yrcz6",
+  "section_break_gigmn",
+  "core_rejection_details",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "CR - .######."
+  },
+  {
+   "fieldname": "column_break_wyeps",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_p7j7p",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_pyzj8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_whwpi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ol9gk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "transaction_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Transaction Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_urxlh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_r9jvo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_4wngs",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "core_rejection_details",
+   "fieldtype": "Table",
+   "label": "Core Rejection Details",
+   "options": "Core Rejection Details"
+  },
+  {
+   "fieldname": "column_break_hfqns",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_iva7a",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "core_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Core Rejection Analysis",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "section_break_gigmn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "supervisor_id",
+   "fieldtype": "Link",
+   "label": "Supervisor Id",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_7lhru",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "supervisor_id.employee_name",
+   "fieldname": "supervisor_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Supervisor Name"
+  },
+  {
+   "fieldname": "column_break_9sxom",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "operator_id",
+   "fieldtype": "Link",
+   "label": "Operator Id",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_sk3ns",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "operator_id.employee_name",
+   "fieldname": "operator_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Operator Name"
+  },
+  {
+   "fieldname": "column_break_yrcz6",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "custom_core_rejection_analysis"
+  }
+ ],
+ "modified": "2024-05-11 19:08:25.514082",
+ "modified_by": "Administrator",
+ "module": "Quantbit Foundry ERP",
+ "name": "Core Rejection Analysis",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

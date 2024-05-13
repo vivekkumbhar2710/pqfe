@@ -24,6 +24,8 @@
   "input_material",
   "section_break_ml9ms",
   "input_total_quantity",
+  "column_break_bjiho",
+  "input_total_weight_conversion",
   "column_break_yxaea",
   "column_break_iwud5",
   "column_break_dgmtx",
@@ -31,6 +33,8 @@
   "output_material",
   "section_break_aacch",
   "output_total_quantity",
+  "column_break_05dti",
+  "output_total_weight_conversion",
   "column_break_pzxzm",
   "column_break_gwn7y",
   "column_break_wvomx",
@@ -172,12 +176,35 @@
   {
    "fieldname": "column_break_muap1",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_bjiho",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "input_total_weight_conversion",
+   "fieldtype": "Float",
+   "label": "Total Weight"
+  },
+  {
+   "fieldname": "column_break_05dti",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "output_total_weight_conversion",
+   "fieldtype": "Float",
+   "label": "Total Weight"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2024-04-03 14:20:59.877951",
+ "links": [
+  {
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "custom_material_conversion"
+  }
+ ],
+ "modified": "2024-05-11 15:54:17.114797",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Material Conversion",

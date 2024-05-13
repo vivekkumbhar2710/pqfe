@@ -1,0 +1,30 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2024-04-22 12:46:14.185051",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "json": "{\"filters\":[[\"Pouring\",\"docstatus\",\"=\",\"1\",false]],\"fields\":[[\"furnece\",\"Pouring\"],[\"_aggregate_column\",\"Pouring\"]],\"order_by\":\"`tabPouring`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"furnece\":120,\"_aggregate_column\":200},\"group_by\":{\"group_by\":\"`tabPouring`.`furnece`\",\"aggregate_function\":\"sum\",\"aggregate_on\":\"`tabPouring`.`total_consumed_weight`\"},\"chart_args\":{\"chart_type\":\"bar\",\"x_axis\":\"heat_date\",\"y_axes\":[\"Casting Details:total_quantity\"]}}",
+ "letter_head": "Phadke  Ferrocast Pvt. Ltd.",
+ "modified": "2024-04-30 18:38:08.755973",
+ "modified_by": "Administrator",
+ "module": "Quantbit Foundry ERP",
+ "name": "Furnace wise Consumption Report",
+ "owner": "mayuresh.bhosale@erpdata.in",
+ "prepared_report": 0,
+ "query": "",
+ "ref_doctype": "Pouring",
+ "report_name": "Furnace wise Consumption Report",
+ "report_script": "",
+ "report_type": "Report Builder",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ]
+}

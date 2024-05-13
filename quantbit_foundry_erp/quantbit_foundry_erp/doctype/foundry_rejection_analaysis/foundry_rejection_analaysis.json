@@ -1,0 +1,257 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-05-07 11:11:08.791739",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "column_break_ju7u4",
+  "posting_date",
+  "column_break_viyts",
+  "naming_series",
+  "column_break_glsvh",
+  "rejection_type",
+  "section_break_bedlr",
+  "supervisor_id",
+  "column_break_e3586",
+  "supervisor_name",
+  "column_break_hcld0",
+  "operator_id",
+  "column_break_mk3wn",
+  "operator_name",
+  "section_break_jdvh0",
+  "customer_id",
+  "column_break_ahipl",
+  "customer_name",
+  "column_break_fy91v",
+  "delivery_note",
+  "column_break_e22wb",
+  "sales_invoice",
+  "section_break_jws3u",
+  "source_warehouse",
+  "column_break_vkr1a",
+  "target_warehouse",
+  "column_break_pjce7",
+  "rejection_analysis_outsourcing_job_work",
+  "column_break_gzpbb",
+  "section_break_lkshs",
+  "rejection_details",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company ",
+   "options": "Company"
+  },
+  {
+   "fieldname": "column_break_ju7u4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "column_break_viyts",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "RA -"
+  },
+  {
+   "fieldname": "column_break_glsvh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rejection_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Rejection Type",
+   "options": "\nCustomer Returned\nSubcontract Returned",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_bedlr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "supervisor_id",
+   "fieldtype": "Link",
+   "label": "Supervisor Id",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_e3586",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "supervisor_id.employee_name",
+   "fieldname": "supervisor_name",
+   "fieldtype": "Data",
+   "label": "Supervisor Name"
+  },
+  {
+   "fieldname": "column_break_hcld0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "operator_id",
+   "fieldtype": "Link",
+   "label": "Operator Id",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_mk3wn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "operator_id.employee_name",
+   "fieldname": "operator_name",
+   "fieldtype": "Data",
+   "label": "Operator Name"
+  },
+  {
+   "fieldname": "section_break_jdvh0",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.rejection_type ==\"Customer Returned\"",
+   "fieldname": "customer_id",
+   "fieldtype": "Link",
+   "label": "Customer ID",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "column_break_ahipl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.rejection_type ==\"Customer Returned\"",
+   "fetch_from": "customer_id.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name"
+  },
+  {
+   "fieldname": "column_break_fy91v",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.rejection_type ==\"Customer Returned\"",
+   "fieldname": "delivery_note",
+   "fieldtype": "Table MultiSelect",
+   "label": "Delivery Note",
+   "options": "Delivery Order Multi Select"
+  },
+  {
+   "fieldname": "column_break_e22wb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.rejection_type ==\"Customer Returned\"",
+   "fieldname": "sales_invoice",
+   "fieldtype": "Table MultiSelect",
+   "label": "Sales Invoice",
+   "options": "Sales Invoice Multi Select"
+  },
+  {
+   "fieldname": "section_break_jws3u",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "source_warehouse",
+   "fieldtype": "Link",
+   "label": "Select Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "column_break_vkr1a",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "target_warehouse",
+   "fieldtype": "Link",
+   "label": " Select Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "column_break_pjce7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.rejection_type ==\"Subcontract Returned\"",
+   "fieldname": "rejection_analysis_outsourcing_job_work",
+   "fieldtype": "Table MultiSelect",
+   "label": "Subcontracting",
+   "options": "Subcontracting Multi Select"
+  },
+  {
+   "fieldname": "column_break_gzpbb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_lkshs",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "rejection_details",
+   "fieldtype": "Table",
+   "label": "Rejection Details",
+   "options": "Rejection Details"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Foundry Rejection Analaysis",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "custom_foundry_rejection_analaysis"
+  }
+ ],
+ "modified": "2024-05-07 13:55:26.546426",
+ "modified_by": "Administrator",
+ "module": "Quantbit Foundry ERP",
+ "name": "Foundry Rejection Analaysis",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

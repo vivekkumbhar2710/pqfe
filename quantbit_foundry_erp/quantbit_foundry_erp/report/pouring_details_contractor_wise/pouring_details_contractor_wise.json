@@ -1,0 +1,48 @@
+{
+ "add_total_row": 1,
+ "columns": [],
+ "creation": "2024-04-18 14:32:46.821875",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "default": "Today",
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date",
+   "mandatory": 1,
+   "options": "",
+   "wildcard_filter": 0
+  },
+  {
+   "default": "Today",
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date",
+   "mandatory": 1,
+   "options": "",
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": "",
+ "modified": "2024-05-03 18:39:52.613037",
+ "modified_by": "Administrator",
+ "module": "Quantbit Foundry ERP",
+ "name": "Pouring Details Contractor Wise",
+ "owner": "mayuresh.bhosale@erpdata.in",
+ "prepared_report": 0,
+ "query": "SELECT \r\n    case when p.contractor is null then 'Missing Contractor' else p.contractor end AS 'Moulding Contractor',\r\n    case when p.contractor_name is null then '-' else p.contractor_name end AS 'Contractor Name',\r\n    p.contractor AS 'Moulding Contractor',\r\n    p.contractor_name AS 'Contractor Name',\r\n    # SUM(p.total_pouring_weight) AS 'Total Pouring Weight:Float:90',\r\n    # SUM(p.total_rr_weight) AS 'Total RR Weight:Float:90',\r\n    SUM((SELECT SUM(cd.total_weight)FROM `tabCasting Details` cd WHERE p.name = cd.parent)) AS 'Total Weight:Float:90',\r\n    SUM((SELECT SUM(cd.rr_weight_total) FROM `tabCasting Details` cd WHERE p.name = cd.parent)) AS 'RR Weight For Total Quantity:Float:90',\r\n    SUM((SELECT SUM(cd.total_quantity)  FROM `tabCasting Details` cd WHERE p.name = cd.parent)) AS 'Total Quantity',\r\n    p.company AS 'Company Name',\r\n    CASE WHEN p.contractor_name = 'None' THEN 'Missing' ELSE p.contractor_name END AS 'Test'\r\nFROM \r\n    `tabPouring` p\r\n#LEFT OUTER JOIN\r\n #   `tabCasting Details` cd ON p.name = cd.parent\r\nWHERE\r\n    p.docstatus = 1 \r\n    AND p.heat_date BETWEEN %(from_date)s AND %(to_date)s\r\nGROUP BY\r\n    p.contractor,\r\n    p.contractor_name\r\n",
+ "ref_doctype": "Pouring",
+ "report_name": "Pouring Details Contractor Wise",
+ "report_script": "SELECT \n    p.contractor AS 'Moulding Contractor',\n    SUM(p.total_pouring_weight) AS 'Total Pouring Weight',\n    SUM(p.total_rr_weight) AS 'Total RR Weight',\n    SUM(p.normal_loss) AS 'Normal Loss',\n    (SUM(p.total_pouring_weight) - SUM(p.total_rr_weight) - SUM(p.normal_loss)) AS 'Good Casting Weight',\n    sp.goodcast/ SUM(sp.goodcast) *100 AS 'Percentage Good Casting',\n    sp.goodcast,\n    # ((SUM(p.total_pouring_weight) - SUM(p.total_rr_weight) - SUM(p.normal_loss)) / SUM(SUM(p.total_pouring_weight) - SUM(p.total_rr_weight) - SUM(p.normal_loss))) * 100 AS 'Percentage Good Casting',\n    p.contractor_name AS 'Contractor Name', \n    p.company AS 'Company Name'\nFROM \n    `tabPouring` p\nLEFT JOIN \n    (SELECT \n        s.name AS name,\n        (SUM(s.total_pouring_weight) - SUM(s.total_rr_weight) - SUM(s.normal_loss)) AS 'goodcast'\n    FROM\n        `tabPouring` s\n     WHERE\n         AND p.heat_date BETWEEN %(from_date)s AND %(to_date)s\n    ) sp ON p.name = sp.name\n    \nWHERE\n    p.docstatus = 1 \n    AND p.heat_date BETWEEN %(from_date)s AND %(to_date)s\nGROUP BY\n    p.contractor;\n",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ]
+}

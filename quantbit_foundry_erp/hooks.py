@@ -224,5 +224,4 @@ fixtures = [
             ["name", "in", ["Filter-Pattern Master","Filter- Casting Treatment","Filter-Pouring"]],
         ],
     },
-    "Rejection Type Master"
 ]

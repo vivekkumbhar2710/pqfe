@@ -156,11 +156,9 @@
    "label": "Charge Mix"
   },
   {
-   "allow_on_submit": 1,
    "fieldname": "heat_no",
    "fieldtype": "Data",
-   "label": "Heat No.",
-   "unique": 1
+   "label": "Heat No."
   },
   {
    "fieldname": "section_break_uqige",
@@ -427,7 +425,7 @@
   },
   {
    "fieldname": "naming_fields",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "hidden": 1,
    "label": "Naming Fields",
    "read_only": 1
@@ -576,7 +574,7 @@
    "table_fieldname": "select_pouring"
   }
  ],
- "modified": "2024-04-15 15:20:05.704045",
+ "modified": "2024-05-13 23:19:31.414059",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Pouring",

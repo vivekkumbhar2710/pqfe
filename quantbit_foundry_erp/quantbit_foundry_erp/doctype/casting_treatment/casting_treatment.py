@@ -24,6 +24,7 @@ class CastingTreatment(Document):
 		self.manifacturing_stock_entry()
 		self.transfer_stock_entry()
 		self.updating_treatment_analysis()
+		self.scrap_manifacturing_stock_entry()
 
 	def before_cancel(self):
 		self.updating_treatment_analysis_on_cancle()
@@ -581,7 +582,7 @@ class CastingTreatment(Document):
 		se.posting_time = self.treatment_time
 		if self.casting_treatment_without_pouring:
 			for y in self.get("pattern_casting_item"):
-				for z in self.get("rejected_items_reasons" ,filters={"item_code": y.item_code ,"reference_id":y.reference_id}):
+				for z in self.get("rejected_items_reasons" ,filters={"item_code": y.item_code ,"reference_id":y.reference_id,"is_scrap":False}):
 					count = count + 1
 					se.append(
 							"items",
@@ -829,3 +830,56 @@ class CastingTreatment(Document):
 	# 	else:
 	# 		return 0
  
+
+#   getting Scrap Details
+	@frappe.whitelist()
+	def get_scrap_details(self):
+		rejected_items = self.get("rejected_items_reasons")
+		if rejected_items:
+			for d in rejected_items:
+				if d.is_scrap:
+					grade = frappe.db.get_value("Item",{'name':d.item_code},"custom_grade")
+					per_unit_weight = frappe.get_value('Production UOM Definition',{'parent': d.item_code ,'uom':'Kg'}, "value_per_unit")
+					scrap_item_code = frappe.get_value('Grade Master',{'name':grade},'scrap_item_code')
+					# frappe.throw(str(scrap_item_name))
+					
+					d.grade = grade if grade else ""
+					d.scrap_item_code = scrap_item_code if scrap_item_code else ""
+					d.per_unit_weight = per_unit_weight if per_unit_weight else 0
+					d.total_weight = per_unit_weight * d.qty if d.qty and per_unit_weight else 0
+				else:
+					d.grade = ""
+					d.scrap_item_code = "" 
+					d.per_unit_weight = 0
+					d.total_weight = 0
+
+	@frappe.whitelist()
+	def scrap_manifacturing_stock_entry(self):
+		for g in self.get("rejected_items_reasons" , filters={"is_scrap":True}):
+			se = frappe.new_doc("Stock Entry")
+			se.stock_entry_type = "Manufacture"
+			se.company = self.company
+			se.set_posting_time = True
+			se.posting_date = self.treatment_date
+			se.posting_time = self.treatment_time
+			se.append(
+					"items",
+					{
+						"item_code": g.scrap_item_code,
+						"qty":  g.total_weight, 
+						"s_warehouse": g.target_warehouse,
+					},)
+			se.append(
+						"items",
+						{
+							"item_code": g.item_code,
+							"qty": g.qty, # finished item total quantity
+							"t_warehouse": frappe.get_value("Grade Master",{'name':g.grade},"default_target_warehouse"),
+							"is_finished_item": True
+						},)
+
+		se.custom_casting_treatment = self.name	
+		if se.items:
+			se.insert()
+			se.save()
+			se.submit()

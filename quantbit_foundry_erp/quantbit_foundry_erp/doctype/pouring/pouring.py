@@ -67,7 +67,7 @@ class Pouring(Document):
 
 		pattern_details = self.get("pattern_details")
 	
-		self.validate_pattern()
+		# self.validate_pattern()
 		
 		for i in pattern_details:
 			if self.furnece :
@@ -488,7 +488,8 @@ class Pouring(Document):
 			cmt_grades = set(cmt['grade'] for cmt in cmt_data)
 			if len(cmt_grades) > 1:
 				frappe.throw("❌ The pattern is faulty. Items in the pattern have different grades. Please ensure that all items have the same 'Grade'. Update the grade from the item master. ❌")
-			if i.poured_boxes < 1:
+			poured_boxes = t.poured_boxes if t.poured_boxes else 0
+			if poured_boxes < 1:
 				frappe.throw("'Poured Boxes' from  'Pattern Details' should need al least 1 quantity")
 
 

@@ -8,14 +8,17 @@
  "engine": "InnoDB",
  "field_order": [
   "item_group",
-  "item_code",
-  "item_name",
   "quantity",
   "column_break_jjlq4",
+  "item_code",
+  "weight_per_unit",
+  "column_break_kwgvm",
+  "item_name",
+  "total_weight",
+  "column_break_rayjl",
   "warehouse",
   "available_quantity",
-  "weight_per_unit",
-  "total_weight",
+  "column_break_ww7ia",
   "posting_date",
   "posting_item_code"
  ],
@@ -58,34 +61,50 @@
   {
    "fieldname": "available_quantity",
    "fieldtype": "Float",
-   "label": "Available Quantity"
+   "label": "Available Quantity",
+   "read_only": 1
   },
   {
    "fieldname": "weight_per_unit",
    "fieldtype": "Float",
-   "label": "Weight Per Unit"
+   "label": "Weight Per Unit",
+   "read_only": 1
   },
   {
    "fieldname": "total_weight",
    "fieldtype": "Float",
-   "label": "Total Weight"
+   "label": "Total Weight",
+   "read_only": 1
   },
   {
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Posting Date"
+   "label": "Posting Date",
+   "read_only": 1
   },
   {
    "fieldname": "posting_item_code",
    "fieldtype": "Link",
    "label": "Posting Item Code",
    "options": "Item"
+  },
+  {
+   "fieldname": "column_break_kwgvm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_rayjl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_ww7ia",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-13 15:18:32.282568",
+ "modified": "2024-05-14 11:07:43.278403",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Output Material For Material Conversion",

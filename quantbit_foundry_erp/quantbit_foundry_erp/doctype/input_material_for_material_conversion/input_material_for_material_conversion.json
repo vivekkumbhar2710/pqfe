@@ -7,14 +7,16 @@
  "engine": "InnoDB",
  "field_order": [
   "item_group",
-  "item_code",
-  "item_name",
   "quantity",
   "column_break_jjlq4",
+  "item_code",
+  "weight_per_unit",
+  "column_break_ve5hz",
+  "item_name",
+  "total_weight",
+  "column_break_gsd84",
   "warehouse",
   "available_quantity",
-  "weight_per_unit",
-  "total_weight",
   "posting_date"
  ],
  "fields": [
@@ -56,28 +58,40 @@
   {
    "fieldname": "available_quantity",
    "fieldtype": "Float",
-   "label": "Available Quantity"
+   "label": "Available Quantity",
+   "read_only": 1
   },
   {
    "fieldname": "weight_per_unit",
    "fieldtype": "Float",
-   "label": "Weight Per Unit"
+   "label": "Weight Per Unit",
+   "read_only": 1
   },
   {
    "fieldname": "total_weight",
    "fieldtype": "Float",
-   "label": "Total Weight"
+   "label": "Total Weight",
+   "read_only": 1
   },
   {
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Posting Date"
+   "label": "Posting Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_ve5hz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_gsd84",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-13 11:43:09.998086",
+ "modified": "2024-05-14 11:09:46.546711",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Input Material For Material Conversion",

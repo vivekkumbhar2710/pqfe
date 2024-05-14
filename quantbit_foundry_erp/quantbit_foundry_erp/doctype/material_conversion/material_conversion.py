@@ -41,7 +41,7 @@ class MaterialConversion(Document):
 			if i.item_code:
 				value = frappe.get_value('Production UOM Definition',{'parent': i.item_code ,'uom':'Kg'}, "value_per_unit")
 				i.weight_per_unit = value if value else 0
-
+		self.get_available_quantity_input_material()
 	@frappe.whitelist()
 	def get_value_per_unit_for_output(self):
 		output_material = self.get("output_material")
@@ -49,6 +49,7 @@ class MaterialConversion(Document):
 			if i.item_code:
 				value = frappe.get_value('Production UOM Definition',{'parent': i.item_code ,'uom':'Kg'}, "value_per_unit")
 				i.weight_per_unit = value if value else 0
+		self.get_available_quantity_output_material()
 
 	@frappe.whitelist()  
 	def total_weight_on_input_material(self):
@@ -91,8 +92,7 @@ class MaterialConversion(Document):
 	def validate_stock_entry(self):
 		for i in self.get("input_material"):
 			qty = 0
-			for j in self.get("output_material"):
-				if i.item_code == j.posting_item_code:
+			for j in self.get("output_material" , filters = {'posting_item_code': i.item_code}):
 					qty+=j.quantity
 			if qty != i.quantity:
 				frappe.throw(f"<strong>{i.item_code}</strong> Input Quantity doesn't match with Output Quantity")
@@ -110,34 +110,32 @@ class MaterialConversion(Document):
 	
 		if self.validate_stock_entry():
 			for i in self.get("input_material"):
-				for j in self.get("output_material"):
-					if i.item_code == j.posting_item_code:
-						doc = frappe.new_doc("Stock Entry")
-						doc.stock_entry_type = "Manufacture"
-						doc.company = self.company
-						doc.set_posting_time = True
-						doc.posting_date =self.posting_date
-      
-						doc.append("items", {
+				for j in self.get("output_material" , filters = {'posting_item_code': i.item_code}):
+					doc = frappe.new_doc("Stock Entry")
+					doc.stock_entry_type = "Manufacture"
+					doc.company = self.company
+					doc.set_posting_time = True
+					doc.posting_date =self.posting_date
+	
+					doc.append("items", {
 						"s_warehouse": i.warehouse,
 						"item_code": i.item_code,
-						"qty": i.quantity,
+						"qty": j.quantity,
 						})
-
-					
-						doc.append("items", {
+					doc.append("items", {
 						"t_warehouse": j.warehouse,
 						"item_code": j.item_code,
 						"qty": j.quantity,
 						"is_finished_item": True,
 						})
-			
+					doc.custom_material_conversion = self.name
+					if doc.items:
 						doc.insert()
 						doc.save()
 						doc.submit()
 		
 		
-			# doc = frappe.new_doc("Stock Entry")
+		# doc = frappe.new_doc("Stock Entry")
 		# doc.stock_entry_type = "Manufacture"
 		# doc.company = self.company
 		# doc.set_posting_time = True
@@ -147,6 +145,7 @@ class MaterialConversion(Document):
 		# 	doc.append("items", {
 		# 		"s_warehouse": i.warehouse,
 		# 		"item_code": i.item_code,
+  
 		# 		"qty": i.quantity ,
 		# 	})
 		

@@ -41,7 +41,7 @@ frappe.ui.form.on('Material Conversion', {
 			let d = locals[cdt][cdn];
 			return {
 				filters: [
-					  ["Warehouse", company_field, '=', frm.doc.company]
+					  ["Warehouse", 'company', '=', frm.doc.company]
 					]
 				};
 			});
@@ -58,6 +58,7 @@ frappe.ui.form.on('Material Conversion', {
 // Input Material For Material Conversion
 
 frappe.ui.form.on('Input Material For Material Conversion', {
+	
 
 	item_code:function(frm)
 	{
@@ -85,10 +86,18 @@ frappe.ui.form.on('Input Material For Material Conversion', {
 			item_code.push(row.item_code)
 		})
 		refresh_field["output_material"]
+
 		frm.fields_dict['input_material'].grid.get_field('item_code').get_query = function (doc,cdt,cdn) {
 			return {
 				filters: [
 					["Item", 'company', '=', frm.doc.company],
+				]
+			};
+		};
+		frm.fields_dict['input_material'].grid.get_field('item_group').get_query = function (doc,cdt,cdn) {
+			return {
+				filters: [
+					["Item Group", 'company', '=', frm.doc.company],
 				]
 			};
 		};
@@ -117,6 +126,22 @@ frappe.ui.form.on('Input Material For Material Conversion', {
 
 
 frappe.ui.form.on('Output Material For Material Conversion', {
+	
+	setup:function(frm){
+		item_code = []
+		frm.doc.input_material.forEach(row=>{
+			item_code.push(row.item_code)
+		})
+	
+		frm.fields_dict['output_material'].grid.get_field('posting_item_code').get_query = function (doc,cdt,cdn) {
+			return {
+				filters: [
+					["Item", 'name', 'in', item_code],
+				]
+			};
+		};
+		frm.refresh_field('output_material');
+	},
 	quantity:function(frm)
 	{
 		frm.call({
@@ -135,11 +160,12 @@ frappe.ui.form.on('Output Material For Material Conversion', {
 		frm.doc.output_material.forEach(row=>{
 			row.posting_date = frm.doc.posting_date
 		})
+		refresh_field["posting_date"]
+
 		item_code = []
 		frm.doc.input_material.forEach(row=>{
 			item_code.push(row.item_code)
 		})
-		refresh_field["posting_date"]
 	
 		frm.fields_dict['output_material'].grid.get_field('posting_item_code').get_query = function (doc,cdt,cdn) {
 			return {
@@ -148,9 +174,25 @@ frappe.ui.form.on('Output Material For Material Conversion', {
 				]
 			};
 		};
+		frm.fields_dict['output_material'].grid.get_field('item_group').get_query = function (doc,cdt,cdn) {
+			return {
+				filters: [
+					["Item Group", 'company', '=', frm.doc.company],
+				]
+			};
+		};
 		frm.refresh_field('output_material');
 	},
 	output_material_remove: function(frm) {
+		frm.fields_dict['output_material'].grid.get_field('item_group').get_query = function (doc,cdt,cdn) {
+			return {
+				filters: [
+					["Item Group", 'company', '=', frm.doc.company],
+				]
+			};
+		};
+		frm.refresh_field('output_material');
+
         frm.call({
             method: 'call_method_output',
             doc: frm.doc
@@ -162,6 +204,9 @@ frappe.ui.form.on('Output Material For Material Conversion', {
 				method:'get_available_quantity_output_material',
 				doc: frm.doc
 		});
+	},
+	posting_item_code:function(frm){
+		
 	}
 });
 
@@ -170,7 +215,7 @@ frappe.ui.form.on('Output Material For Material Conversion', {
 
 
 
- 
+
 
 
 

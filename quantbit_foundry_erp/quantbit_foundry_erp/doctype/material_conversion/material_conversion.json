@@ -204,7 +204,7 @@
    "link_fieldname": "custom_material_conversion"
   }
  ],
- "modified": "2024-05-11 15:54:17.114797",
+ "modified": "2024-05-14 12:22:36.725399",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Material Conversion",
@@ -212,6 +212,8 @@
  "owner": "Administrator",
  "permissions": [
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,

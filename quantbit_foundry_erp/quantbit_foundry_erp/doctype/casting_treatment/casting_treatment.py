@@ -856,30 +856,31 @@ class CastingTreatment(Document):
 	@frappe.whitelist()
 	def scrap_manifacturing_stock_entry(self):
 		for g in self.get("rejected_items_reasons" , filters={"is_scrap":True}):
-			se = frappe.new_doc("Stock Entry")
-			se.stock_entry_type = "Manufacture"
-			se.company = self.company
-			se.set_posting_time = True
-			se.posting_date = self.treatment_date
-			se.posting_time = self.treatment_time
-			se.append(
-					"items",
-					{
-						"item_code": g.scrap_item_code,
-						"qty":  g.total_weight, 
-						"s_warehouse": g.target_warehouse,
-					},)
-			se.append(
+			for i in self.get("pattern_casting_item" , filters={"reference_id":g.reference_id}):
+				se = frappe.new_doc("Stock Entry")
+				se.stock_entry_type = "Manufacture"
+				se.company = self.company
+				se.set_posting_time = True
+				se.posting_date = self.treatment_date
+				se.posting_time = self.treatment_time
+				se.append(
 						"items",
 						{
 							"item_code": g.item_code,
-							"qty": g.qty, # finished item total quantity
-							"t_warehouse": frappe.get_value("Grade Master",{'name':g.grade},"default_target_warehouse"),
-							"is_finished_item": True
+							"qty":  g.qty, 
+							"s_warehouse": i.source_warehouse,
 						},)
+				se.append(
+							"items",
+							{
+								"item_code": g.scrap_item_code,
+								"qty": g.total_weight, # finished item total quantity
+								"t_warehouse": frappe.get_value("Grade Master",{'name':g.grade},"default_target_warehouse"),
+								"is_finished_item": True
+							},)
 
-		se.custom_casting_treatment = self.name	
-		if se.items:
-			se.insert()
-			se.save()
-			se.submit()
+			se.custom_casting_treatment = self.name	
+			if se.items:
+				se.insert()
+				se.save()
+				se.submit()

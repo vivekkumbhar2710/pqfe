@@ -1,0 +1,142 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-15 15:46:32.856560",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "supplier_id",
+  "column_break_vvz7d",
+  "supplier_name",
+  "column_break_flrvj",
+  "company",
+  "section_break_jraow",
+  "date",
+  "column_break_q45nl",
+  "posting_time",
+  "column_break_qbtv3",
+  "company_abbr",
+  "purchase_material_return_section",
+  "material_return",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "supplier_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Supplier ID",
+   "options": "Supplier",
+   "reqd": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "posting_time",
+   "fieldtype": "Data",
+   "label": "Posting Time"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "company.abbr",
+   "fieldname": "company_abbr",
+   "fieldtype": "Data",
+   "label": "Company Abbr",
+   "read_only": 1
+  },
+  {
+   "fieldname": "material_return",
+   "fieldtype": "Table",
+   "label": "Material Return",
+   "options": "Child Purchase Material Return"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Purchase Material Return",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "supplier_id.supplier_name",
+   "fieldname": "supplier_name",
+   "fieldtype": "Data",
+   "label": "Supplier Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_vvz7d",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_flrvj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_jraow",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_q45nl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_qbtv3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "purchase_material_return_section",
+   "fieldtype": "Section Break",
+   "label": "Purchase Material Return"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "custom_purchase_material_return"
+  }
+ ],
+ "modified": "2024-05-16 12:15:30.901000",
+ "modified_by": "Administrator",
+ "module": "Quantbit Foundry ERP",
+ "name": "Purchase Material Return",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -11,9 +11,10 @@ def execute(filters=None):
 
 	# charge_item = frappe.get_all("Grade Items Details", fields = ['item_code' , 'item_name' ] , group_by='item_code')
 	company =  filters.get('company')
-	charge_item = frappe.db.sql(''' select item_code , item_name , name 
-							 		FROM `tabGrade Items Details`
-									WHARE  
+	charge_item = frappe.db.sql(''' select c.item_code , c.item_name , c.name 
+							 		FROM `tabGrade Master` p
+									LEFT JOIN `tabGrade Items Details` c ON p.name =c.parent
+									WHERE  p.company = %s
 							 		GROUP BY item_code ''', (company), as_dict=True)
 
 	columns = get_columns(charge_item)

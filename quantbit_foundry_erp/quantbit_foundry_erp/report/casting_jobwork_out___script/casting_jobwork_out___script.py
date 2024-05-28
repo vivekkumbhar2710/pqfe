@@ -3,13 +3,13 @@ from datetime import datetime
 
 def execute(filters=None):
     columns, data = [], []
-    columns = get_col(filters.get("group_by"))
+    columns = get_col(filters)
     data = get_data(filters)
     if not data:
         frappe.msgprint("No data")
     return columns, data
 
-def get_col(group_by):
+def get_col(filters):
     columns = [
         {
             "fieldname": "Customer ID","fieldtype": "Data","label": "Customer ID"
@@ -36,49 +36,38 @@ def get_col(group_by):
             "fieldname": "(OK) Return Quantity","fieldtype": "Float","label": "(OK) Return Quantity"
         },
         {
-            "fieldname": "(OK) Return Quantity Weight","fieldtype": "Float","label": " (OK) Return Quantity Weight"
-        },
-        {
             "fieldname": "As It Is","fieldtype": "Float","label": "As It Is"
-        },
-        {
-            
-            "fieldname": "As It Is Weight","fieldtype": "Float","label": "As It Is Weight"
         },
         {
             "fieldname": "CR Rejection","fieldtype": "Float","label": "CR Rejection"
         },
         {
-            "fieldname": "CR Rejection Weight","fieldtype": "Float","label": "CR Rejection Weight"
-        },
-        {
             "fieldname": "MR Rejection","fieldtype": "Float","label": "MR Rejection"
-        },
-        {
-            "fieldname": "MR Rejection Weight","fieldtype": "Float","label": "MR Rejection Weight"
         },
         {
             "fieldname": "Other Rejection","fieldtype": "Float","label": "Other Rejection"
         },
         {
-            "fieldname": "Other Rejection Weight","fieldtype": "Float","label": "Other Rejection Weight"
-        },
-        {
             "fieldname": "Total Quantity","fieldtype": "Float","label": "Total Quantity"
-        },
-        {
-            "fieldname": "Total Quantity Weight","fieldtype": "Float","label": "Total Quantity Weight"
         },
         {
             "fieldname": "Balance","fieldtype": "Float","label": "Balance"
         }
     ]
-    if group_by == "Group By Item":
+    if filters.get("group_by") == "Group By Item":
         columns.insert(0, {"fieldname": "Item Code","fieldtype": "Data","label": "Item Code"})
         columns.insert(1,{"fieldname": "Item Name","fieldtype": "Data","label": "Item Name"})
     else:
         columns.insert(2, {"fieldname": "Item Code","fieldtype": "Data","label": "Item Code"})
         columns.insert(3,{"fieldname": "Item Name","fieldtype": "Data","label": "Item Name"})
+
+    if filters.get("include_weight"):
+        columns.insert(10,{"fieldname": "(OK) Return Quantity Weight","fieldtype": "Float","label": " (OK) Return Quantity Weight"})
+        columns.insert(12,{"fieldname": "As It Is Weight","fieldtype": "Float","label": "As It Is Weight"})
+        columns.insert(14,{"fieldname": "CR Rejection Weight","fieldtype": "Float","label": "CR Rejection Weight"})
+        columns.insert(16,{"fieldname": "MR Rejection Weight","fieldtype": "Float","label": "MR Rejection Weight"})
+        columns.insert(18,{"fieldname": "Other Rejection Weight","fieldtype": "Float","label": "Other Rejection Weight"})
+        columns.insert(20,{"fieldname": "Total Quantity Weight","fieldtype": "Float","label": "Total Quantity Weight"})
     return columns
 
 def get_data(filters):

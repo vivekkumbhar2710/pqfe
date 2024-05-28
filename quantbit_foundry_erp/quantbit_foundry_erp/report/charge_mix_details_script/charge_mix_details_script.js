@@ -9,7 +9,7 @@ frappe.query_reports["Charge Mix Details Script"] = {
 			fieldtype: "Link",
 			label: "Company",
 			options: "Company",
-			
+			reqd:1,			
 		},
 		{
 			fieldname: "from_date",

@@ -89,6 +89,12 @@ def get_columns(filters):
 			# "options": "Item",
 		},
 		{
+			"fieldname": "Percentage_Burning_Loss",
+			"fieldtype": "Float",
+			"label": "Percentage Burning Loss",
+			# "options": "Item",
+		},		
+		{
 			"fieldname": "Poured_Boxes",
 			"fieldtype": "Float",
 			"label": "Poured Boxes",
@@ -214,6 +220,7 @@ def get_data(filters):
 					p.shift 'Shift',
 					SUM(p.power_consumed) 'Power_Consumed',
 					SUM(p.normal_loss) 'Burning_Loss_Weight',
+					(SUM(p.normal_loss) / SUM(c.total_weight)) * 100 "Percentage_Burning_Loss",
 					SUM((SELECT SUM(d.poured_boxes)FROM `tabPattern Details` d WHERE p.name = d.parent)) AS 'Poured_Boxes',
 					SUM(c.quantitybox) 'Box_Quantity',
 					SUM(c.short_quantity) 'Short_Quantity',

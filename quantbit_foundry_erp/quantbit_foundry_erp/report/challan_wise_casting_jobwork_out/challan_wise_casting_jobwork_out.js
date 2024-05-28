@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
-frappe.query_reports["Casting Jobwork Out - Script"] = {
+frappe.query_reports["Challan Wise Casting Jobwork out"] = {
 	"filters": [
 		{
             "fieldname": "company",
@@ -23,13 +23,9 @@ frappe.query_reports["Casting Jobwork Out - Script"] = {
             "label": "To Date",
 			"reqd": 1
         },
-        {
-            "fieldname": "group_by",
-            "fieldtype": "Select",
-            "label": "Group By",
-            "options": ["Group By Item", "Group By Customer"],
-            default: "Group By Item"
-        },
+		{
+			"fieldname": "Out Challan No","fieldtype": "Data","label": "Out Challan No"
+		},
         {
             "fieldname": "include_weight",
             "fieldtype": "Check",

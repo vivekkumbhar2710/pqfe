@@ -98,7 +98,7 @@ def get_data(filters):
 	sql_query = """
 					SELECT 
 						se.stock_entry_type AS "stock_entry_type",
-						sed.item_group AS "item_group", 
+	 					sed.item_group AS "item_group", 
 						sed.item_code AS "item_code",
 						sed.item_name AS "item_name",
 						ROUND(SUM(sed.qty), 2) AS "qty",

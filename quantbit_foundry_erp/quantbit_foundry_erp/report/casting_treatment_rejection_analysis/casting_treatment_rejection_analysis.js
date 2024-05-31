@@ -2,8 +2,8 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
-frappe.query_reports["Department Wise Consumption"] = {
-	"filters": [ 
+frappe.query_reports["Casting Treatment Rejection Analysis"] = {
+	"filters": [
 		{
             "fieldname": "company",
             "fieldtype": "Link",
@@ -24,18 +24,16 @@ frappe.query_reports["Department Wise Consumption"] = {
 			"reqd" : 1
         },
 		{
-            "fieldname": "item_group",
-            "fieldtype": "Link",
-			"options": "Item Group",
-            "label": "Item Group"
-        },
+            "fieldname": "supervisor",
+            "fieldtype" : "Link",
+			"options" : "Supervisor Master",
+            "label": "Supervisor"
+	    },
         {
-            "fieldname": "stock_entry_type",
-            "fieldtype": "Select",
-            "label": "Stock Entry Type",
-            "options": [" ","Manufacture", "Material Issue"]  
-        }
-        
-
+            "fieldname": "contractor",
+            "fieldtype" : "Link",
+			"options" : "Supplier",
+            "label": "Contractor"
+	    },
 	]
 };

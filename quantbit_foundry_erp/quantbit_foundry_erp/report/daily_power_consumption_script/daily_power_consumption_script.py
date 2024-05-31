@@ -44,7 +44,7 @@ def get_columns(filters):
 		},
 		{
 			"fieldname": "Total_pouring_weight",
-			"fieldtype": "Data",
+			"fieldtype": "Float",
 			"label": "Total pouring weight",
 			# "options": "Pouring",
 			
@@ -111,7 +111,8 @@ def get_data(filters):
 
 	if Furnace:
 		conditions.append("furnece = %s")
-		params.append(Furnace)
+		params.append(str(Furnace))
+		# params["operator_name"] = operator_name
 
 	# if operator_name:
 	# 	conditions.append("c.operator_name = %s")
@@ -125,8 +126,8 @@ def get_data(filters):
 	# 	conditions.append("c.casting_treatment = %s")
 	# 	params.append(Casting_Treatment)
 
-	# if conditions:
-	# 	sql_query += " AND " + " AND ".join(conditions)
+	if conditions:
+		sql_query += " AND " + " AND ".join(conditions)
 
 	sql_query += """ GROUP BY heat_date,furnece """
 

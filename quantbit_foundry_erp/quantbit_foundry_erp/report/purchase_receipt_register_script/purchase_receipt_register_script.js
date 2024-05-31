@@ -1,9 +1,9 @@
-// Copyright (c) 2024, Quantbit Technologies Pvt ltd and contributors
+// Copyright (c) 2024, Abhishek Chougule and contributors
 // For license information, please see license.txt
 /* eslint-disable */
 
-frappe.query_reports["Department Wise Consumption"] = {
-	"filters": [ 
+frappe.query_reports["Purchase Receipt Register Script"] = {
+	"filters": [
 		{
             "fieldname": "company",
             "fieldtype": "Link",
@@ -16,7 +16,7 @@ frappe.query_reports["Department Wise Consumption"] = {
             "fieldtype": "Date",
             "label": "From Date",
 			"reqd" : 1
-        }, 
+        },   
         {
             "fieldname": "to_date",
             "fieldtype": "Date",
@@ -25,17 +25,10 @@ frappe.query_reports["Department Wise Consumption"] = {
         },
 		{
             "fieldname": "item_group",
-            "fieldtype": "Link",
-			"options": "Item Group",
+            "fieldtype" : "Link",
+			"options" : "Item Group",
             "label": "Item Group"
-        },
-        {
-            "fieldname": "stock_entry_type",
-            "fieldtype": "Select",
-            "label": "Stock Entry Type",
-            "options": [" ","Manufacture", "Material Issue"]  
-        }
-        
-
+	    }
+		
 	]
 };

@@ -29,7 +29,7 @@ frappe.query_reports["Daily Power Consumption Script"] = {
 			fieldname: "furnece",
 			fieldtype: "Link",
 			label: "Furnace",
-			options: "Furnace Master",
+			options: "Furnece Master",
 			
 		},
 		// {

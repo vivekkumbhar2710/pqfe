@@ -36,7 +36,7 @@ frappe.query_reports["Heat Wise Daily Production Script"] = {
 			fieldname: "Casting_Item_Name",
 			fieldtype: "Link",
 			label: "Casting Item Name",
-			options: "Casting Details",
+			options: "Item",
 		},
 
 		// {

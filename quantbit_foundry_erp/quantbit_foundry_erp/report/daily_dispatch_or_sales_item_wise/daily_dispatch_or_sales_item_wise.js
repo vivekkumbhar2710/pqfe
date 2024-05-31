@@ -19,6 +19,12 @@ frappe.query_reports["Daily Dispatch OR Sales Item-wise"] = {
             "fieldname": "to_date",
             "fieldtype": "Date",
             "label": "To Date"
+        },
+        {
+            "fieldname": "item_code",
+            "fieldtype": "Link",
+            "label": "Item Name",
+            "options": "Item"
         }
 	]
 };

@@ -21,18 +21,21 @@ def get_columns():
 		{
 			"fieldname" : "customer_name",
 			"fieldtype" : "Data",
-			"label" : "Customer Name"
+			"label" : "Customer Name",
+			"width":300
 		},
 		{
 			"fieldname" : "item_code",
 			"fieldtype" : "Link",
 			"options" : "Item",
-			"label" : "Item Code"
+			"label" : "Item Code",
+			"width":300
 		},
 		{
 			"fieldname" : "item_name",
 			"fieldtype" : "Data",
-			"label" : "Item Name"
+			"label" : "Item Name",
+			"width":280
 		},
 		{
 			"fieldname" : "qty",
@@ -65,7 +68,7 @@ def get_columns():
 			"label" : "Tax Amount",
 			"precision": 2,
 			"width":150
-		},
+		}, 
 		{
 			"fieldname" : "total_amount",
 			"fieldtype" : "Float",
@@ -90,6 +93,7 @@ def get_data(filters):
 	from_date = filters.get("from_date")
 	to_date = filters.get("to_date")
 	comp = filters.get("company")
+	item = filters.get("item_code")
 	conditions = []
 	params = [comp,from_date, to_date]
 
@@ -118,13 +122,17 @@ def get_data(filters):
 						AND uom.uom = 'Kg'
 					WHERE
 						dn.company = %s AND DATE(dn.posting_date) BETWEEN %s AND %s AND dn.docstatus = 1
-						AND dn.custom_job_work_receipt IS NULL OR dn.custom_job_work_receipt = ''
-					GROUP BY
-						dni.item_code,
-						dn.customer_name,
-						dn.company
-                        """
-    
+						AND (dn.custom_job_work_receipt IS NULL OR dn.custom_job_work_receipt = '')
+						
+                """
+	if item:
+		add_condition(conditions, params, "dni.item_code= %s", item)
+
+	if conditions:
+		sql_query += " AND " + " AND ".join(conditions)
+	
+	sql_query += " GROUP BY dni.item_code, dn.customer_name, dn.company"
+	    
 	data = frappe.db.sql(sql_query, tuple(params), as_dict=True)
 	return data
 

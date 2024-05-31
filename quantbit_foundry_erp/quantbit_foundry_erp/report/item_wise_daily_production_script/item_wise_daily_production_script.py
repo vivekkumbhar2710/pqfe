@@ -187,9 +187,12 @@ def get_data(filters):
 	
 	from_date = filters.get('from_date')
 	to_date =  filters.get('to_date')
-	operator_name = filters.get('operator_name')
+	operator_id = filters.get('operator_name')
+	operator_name = frappe.get_value('Operator Master' ,operator_id , 'operator_name' )
+
+	# frappe.throw(str(operator_id))
 	supervisor_name =  filters.get('supervisor_name')
-	Casting_Item_Name =  filters.get('Casting_Item_Name')
+	Casting_Item_Name =  filters.get('Casting_Item_Code')
 	company =  filters.get('company')
 	conditions = []
 	params = [from_date, to_date , company]
@@ -244,15 +247,16 @@ def get_data(filters):
 
 	if operator_name:
 		conditions.append("p.operator_name = %s")
-		params["operator_name"] = operator_name
+		# params["operator_name"] = operator_name
+		params.append(operator_name)
 
 	if supervisor_name:
 		conditions.append("p.supervisor_name = %s")
 		params.append(supervisor_name)
 
 	if Casting_Item_Name:
-		conditions.append("c.item_name = %s")
-		params.append(machine)
+		conditions.append("c.item_code = %s")
+		params.append(Casting_Item_Name)
 
 	if conditions:
 		sql_query += " AND " + " AND ".join(conditions)

@@ -22,7 +22,7 @@ frappe.query_reports["RR Generation and Consumption"] = {
             "fieldtype": "Date",
             "label": "To Date",
 			"reqd" : 1
-        },	
+        },	 
         {
             "fieldname": "heat_no",
             "fieldtype": "Data",

@@ -26,17 +26,17 @@ frappe.query_reports["Item wise Daily Production Script"] = {
 			reqd: 1,
 		},
 		{
-			fieldname: "Operator_Name",
+			fieldname: "operator_name",
 			fieldtype: "Link",
 			label: "Operator Name",
 			options: "Operator Master",
 			
 		},
 		{
-			fieldname: "Casting_Item_Name",
+			fieldname: "Casting_Item_Code",
 			fieldtype: "Link",
 			label: "Casting Item Name",
-			options: "Casting Details",
+			options: "Item",
 		},
 
 		// {

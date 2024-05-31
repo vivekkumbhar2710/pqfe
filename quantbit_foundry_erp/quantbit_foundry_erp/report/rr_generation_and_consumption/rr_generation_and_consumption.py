@@ -151,7 +151,7 @@ def get_data(filters):
 		add_condition(conditions, params, "cmd.item_code = %s", item_code) 
 	if heat_no:
 		add_condition(conditions, params, "p.heat_no = %s", heat_no)
-		
+		 
 	if conditions:
 		sql_query += " AND " + " AND ".join(conditions)
 

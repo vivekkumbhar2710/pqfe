@@ -1,0 +1,114 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{month}-{year}",
+ "creation": "2024-05-27 10:48:45.339027",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "column_break_xen4s",
+  "month",
+  "column_break_rnswb",
+  "year",
+  "section_break_ncaha",
+  "item_pouring_schedule",
+  "section_break_1jon5",
+  "total_quantity",
+  "column_break_meftt",
+  "total_weight"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break_xen4s",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Select",
+   "label": "Month",
+   "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break_rnswb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Year",
+   "options": "2023\n2024\n2025\n2026\n2027",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_ncaha",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "item_pouring_schedule",
+   "fieldtype": "Table",
+   "label": "Item Pouring Schedule",
+   "options": "Item Pouring Schedule"
+  },
+  {
+   "fieldname": "section_break_1jon5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity of Finished Item",
+   "precision": "3"
+  },
+  {
+   "fieldname": "column_break_meftt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "total_weight",
+   "fieldtype": "Float",
+   "label": "Total Weight of Finished Item"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-05-29 18:04:58.228143",
+ "modified_by": "Administrator",
+ "module": "Quantbit Foundry ERP",
+ "name": "Monthly Pouring Schedule",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

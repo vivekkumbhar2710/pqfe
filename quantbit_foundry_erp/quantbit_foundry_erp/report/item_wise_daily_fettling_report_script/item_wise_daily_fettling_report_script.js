@@ -26,18 +26,18 @@ frappe.query_reports["Item Wise Daily Fettling Report Script"] = {
 			reqd: 1,
 		},
 		{
-			fieldname: "Operator_Name",
+			fieldname: "Operator_ID",
 			fieldtype: "Link",
-			label: "Operator Name",
+			label: "Operator ID",
 			options: "Operator Master",
 			
 		},
-		{
-			fieldname: "Casting_Treatment",
-			fieldtype: "Link",
-			label: "Casting Treatment",
-			options: "Casting Treatment Master",
-		},
+		// {
+		// 	fieldname: "Casting_Treatment",
+		// 	fieldtype: "Link",
+		// 	label: "Casting Treatment",
+		// 	options: "Casting Treatment Master",
+		// },
 
 		// {
 		// 	fieldname: "route",

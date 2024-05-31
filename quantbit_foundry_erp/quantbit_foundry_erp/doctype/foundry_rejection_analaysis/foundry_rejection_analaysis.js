@@ -9,7 +9,7 @@ frappe.ui.form.on('Foundry Rejection Analaysis', {
 				method:'get_outsourcing_job_work',
 				doc: frm.doc
 		});
-	}
+	} 
 });
 
 frappe.ui.form.on('Foundry Rejection Analaysis', {

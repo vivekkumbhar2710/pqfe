@@ -14,7 +14,7 @@ class FoundryRejectionAnalaysis(Document):
 			child_data=frappe.get_all("IN Rejected Items Reasons Subcontracting",filters={"parent":i.outsourcing_job_work},
 							fields=["rejection_reason","name","rejection_type","raw_item_code","raw_item_name","quantity","target_warehouse",
 						 		"reference_id","weight_per_unit","total_rejected_weight"])
-			
+			 
 			if(child_data):
 				for j in child_data:
 					count=0
@@ -166,7 +166,7 @@ class FoundryRejectionAnalaysis(Document):
 				"qty": i.quantity,
 				"is_finished_item": True,
 			})
-			if self.rejection_details:
+			if self.rejection_details and doc.items:
 				doc.custom_foundry_rejection_analaysis = self.name
 				doc.insert()
 				doc.submit()
@@ -187,7 +187,7 @@ class FoundryRejectionAnalaysis(Document):
 					"qty": l.quantity,
 					"t_warehouse": l.target_warehouse,
 				})
-		if self.rejection_details:
+		if self.rejection_details and doc.items:
 			doc.custom_foundry_rejection_analaysis = self.name
 			doc.insert()
 			doc.submit()

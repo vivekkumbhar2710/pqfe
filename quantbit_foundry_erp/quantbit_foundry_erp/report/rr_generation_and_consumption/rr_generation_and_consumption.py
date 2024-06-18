@@ -142,13 +142,13 @@ def get_data(filters):
 					"""
     
 	if sup_name:
-		add_condition(conditions, params, "p.supervisor = %s", sup_name)
+		add_condition(conditions, params, "p.supervisor in %s", sup_name)
 	if operator_name:
-		add_condition(conditions, params, "p.operator = %s", operator_name)
+		add_condition(conditions, params, "p.operator in %s", operator_name)
 	if contractor_name:
-		add_condition(conditions, params, "p.contractor = %s", contractor_name)
+		add_condition(conditions, params, "p.contractor in %s", contractor_name)
 	if item_code:
-		add_condition(conditions, params, "cmd.item_code = %s", item_code) 
+		add_condition(conditions, params, "cmd.item_code in %s", item_code) 
 	if heat_no:
 		add_condition(conditions, params, "p.heat_no = %s", heat_no)
 		 

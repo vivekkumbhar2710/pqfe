@@ -23,12 +23,23 @@ frappe.query_reports["Purchase Receipt Register Script"] = {
             "label": "To Date",
 			"reqd" : 1
         },
-		{
-            "fieldname": "item_group",
-            "fieldtype" : "Link",
-			"options" : "Item Group",
-            "label": "Item Group"
-	    }
+        {
+			fieldname: "item_group",
+			label: __("Item Group"),
+			fieldtype: "MultiSelectList",
+			options: "Item Group",
+			get_data: function(txt) {
+				return frappe.db.get_link_options("Item Group", txt);
+			},
+			reqd: 0,
+		}
+        
+		// {
+        //     "fieldname": "item_group",
+        //     "fieldtype" : "Link",
+		// 	"options" : "Item Group",
+        //     "label": "Item Group"
+	    // }
 		
 	]
 };

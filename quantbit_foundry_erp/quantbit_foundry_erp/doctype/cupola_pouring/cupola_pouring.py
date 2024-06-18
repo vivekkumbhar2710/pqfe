@@ -17,6 +17,7 @@ class CupolaPouring(Document):
 		self.create_rr_item_retain_items()
 		self.validate_total_charge_mix()
 		self.calculate_normal_loss()
+		self.set_cheque_mark_casting_details()
 		if int(self.power_reading_initial) == 0:
 			frappe.throw('Please Fill Power Reading')
 		if int(self.power_reading_final) == 0:
@@ -565,3 +566,9 @@ class CupolaPouring(Document):
 														"process_id":d.process_id,
 														"process_name":d.process_name,
 													})
+
+	@frappe.whitelist()
+	def set_cheque_mark_casting_details(self):
+		for d in self.get('pattern_details' ,):
+			for i in self.get('casting_details' , filters= {"pattern": d.pattern_code}):
+				i.loose_pattern = d.loose_pattern

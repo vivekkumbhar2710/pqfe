@@ -20,3 +20,21 @@ class DaywisePouringSchedule(Document):
 
 		self.total_quantity = total_qty
 		self.total_weight = total_weight
+	@frappe.whitelist()
+	def get_patterns(self,item_code):
+		patterns = frappe.db.sql("""
+														SELECT a.name
+														FROM `tabPattern Master` a
+														LEFT JOIN `tabCasting Material Details` b ON a.name = b.parent
+														WHERE b.item_code = %s
+													""",(item_code),as_dict="True")
+		pattern_list = [i['name'] for i in patterns]
+		return pattern_list
+     
+	# @frappe.whitelist()
+	# def set_total_weight(self,date):
+	# 	data = self.get("item_pouring_schedule",filters={"planning_date":date})
+	# 	self.daywise_total_weight = sum(i.planned_weight if i.planned_weight else 0 for i in data)
+		
+		
+     

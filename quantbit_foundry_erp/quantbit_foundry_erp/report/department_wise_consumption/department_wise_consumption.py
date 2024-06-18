@@ -115,11 +115,13 @@ def get_data(filters):
 					WHERE
 						se.company = %s AND DATE(se.posting_date) BETWEEN %s AND %s AND se.docstatus = 1
 						AND (se.stock_entry_type = 'Material Issue' OR se.stock_entry_type = 'Manufacture')
-						AND sed.is_finished_item = 0 					
+						AND sed.is_finished_item = 0 
+						AND sed.item_group != 'CASTING'
+									
                         """
     
 	if item_group:
-		add_condition(conditions, params, "sed.item_group = %s", item_group)
+		add_condition(conditions, params, "sed.item_group in %s", item_group)
 	if stock_entry_type:
 		add_condition(conditions, params, "se.stock_entry_type = %s", stock_entry_type)
 		

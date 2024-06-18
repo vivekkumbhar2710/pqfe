@@ -13,6 +13,7 @@ def get_col(filters):
         {"fieldname": "In Challan No", "fieldtype": "Data", "label": "In Challan No"},
         {"fieldname": "Customer Name", "fieldtype": "Data", "label": "Customer Name"},
         {"fieldname": "Item Code", "fieldtype": "Data", "label": "Item Code"},
+        {"fieldname": "Item Name", "fieldtype": "Data", "label": "Item Name"},
         {"fieldname": "opening_qty", "fieldtype": "Float", "label": "Opening Qty"},
         {"fieldname": "IN Qty", "fieldtype": "Data", "label": "In Qty"},
         {"fieldname": "total_qty", "fieldtype": "Float", "label": "Total Qty"},
@@ -26,12 +27,12 @@ def get_col(filters):
     ]
 
     if filters.get("include_weight"):
-        columns.insert(8, {"fieldname": "(OK) Return Quantity Weight", "fieldtype": "Float", "label": "(OK) Return Quantity Weight"})
-        columns.insert(10, {"fieldname": "As It Is Weight", "fieldtype": "Float", "label": "As It Is Weight"})
-        columns.insert(12, {"fieldname": "CR Rejection Weight", "fieldtype": "Float", "label": "CR Rejection Weight"})
-        columns.insert(14, {"fieldname": "MR Rejection Weight", "fieldtype": "Float", "label": "MR Rejection Weight"})
-        columns.insert(16, {"fieldname": "Other Rejection Weight", "fieldtype": "Float", "label": "Other Rejection Weight"})
-        columns.insert(18, {"fieldname": "Total Quantity Weight", "fieldtype": "Float", "label": "Total Quantity Weight"})
+        columns.insert(9, {"fieldname": "(OK) Return Quantity Weight", "fieldtype": "Float", "label": "(OK) Return Quantity Weight"})
+        columns.insert(11, {"fieldname": "As It Is Weight", "fieldtype": "Float", "label": "As It Is Weight"})
+        columns.insert(13, {"fieldname": "CR Rejection Weight", "fieldtype": "Float", "label": "CR Rejection Weight"})
+        columns.insert(15, {"fieldname": "MR Rejection Weight", "fieldtype": "Float", "label": "MR Rejection Weight"})
+        columns.insert(17, {"fieldname": "Other Rejection Weight", "fieldtype": "Float", "label": "Other Rejection Weight"})
+        columns.insert(19, {"fieldname": "Total Quantity Weight", "fieldtype": "Float", "label": "Total Quantity Weight"})
 
     return columns
 

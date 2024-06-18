@@ -391,6 +391,17 @@ frappe.ui.form.on('Cupola Pattern Details', {
 });
 
 
+frappe.ui.form.on('Cupola Pattern Details', {
+    loose_pattern: function(frm) {
+
+				frm.call({
+				method:'set_cheque_mark_casting_details',
+				doc:frm.doc,
+			});
+	},
+});
+
+
 // ============================================================= Change Mix Details =================================================
 
 frappe.ui.form.on('Cupola Change Mix Details', {

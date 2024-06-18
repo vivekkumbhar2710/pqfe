@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": "",
- "modified": "2024-05-14 17:38:29.121584",
+ "modified": "2024-06-12 13:28:30.701907",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Daily Power Consumption Script",
@@ -24,6 +24,12 @@
  "roles": [
   {
    "role": "System Manager"
+  },
+  {
+   "role": "Foundry Operator"
+  },
+  {
+   "role": "Foundry Supervisor"
   }
  ]
 }

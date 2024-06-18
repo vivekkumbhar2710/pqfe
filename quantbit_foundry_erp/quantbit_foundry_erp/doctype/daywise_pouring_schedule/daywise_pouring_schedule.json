@@ -19,6 +19,10 @@
   "total_quantity",
   "column_break_meftt",
   "total_weight",
+  "column_break_ir4kw",
+  "date",
+  "column_break_t10d5",
+  "daywise_total_weight",
   "amended_from"
  ],
  "fields": [
@@ -92,11 +96,29 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "daywise_total_weight",
+   "fieldtype": "Float",
+   "label": "Daywise Total Weight"
+  },
+  {
+   "fieldname": "column_break_ir4kw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_t10d5",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-27 16:46:55.742583",
+ "modified": "2024-06-08 22:05:00.671051",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Daywise Pouring Schedule",

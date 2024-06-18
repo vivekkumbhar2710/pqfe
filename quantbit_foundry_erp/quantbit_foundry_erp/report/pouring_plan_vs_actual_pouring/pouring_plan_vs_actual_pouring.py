@@ -17,7 +17,8 @@ def get_columns(filters):
     columns = [
         {"fieldname": "part_name", "fieldtype": "Data", "label": "<b>Part Name</b>","width":150},
         {"fieldname": "part_code", "fieldtype": "Data", "label": "<b>Part Code</b>","width":150},
-        {"fieldname": "part_no", "fieldtype": "Data", "label": "<b>Part No</b>","width":150},
+        # {"fieldname": "part_no", "fieldtype": "Data", "label": "<b>Part No</b>","width":150},
+        {"fieldname": "pattern", "fieldtype": "Data", "label": "<b>Pattern</b>","width":150},
         {"fieldname": "weight", "fieldtype": "Float", "label": "<b>Weight</b>","width":100},
         {"fieldname": "qty", "fieldtype": "Int", "label": "<b>Scheduled Quantity</b>","width":100},
         {"fieldname": "achievement_in_per", "fieldtype": "Float", "label": "<b>Achievement in %</b>","width":100},
@@ -99,90 +100,138 @@ def get_data(filters):
         
    
     item_filter = {'item_code': item} if item else None
+    
+    
     for j in month_doc.get("item_pouring_schedule" , filters = item_filter):
+        
+        
+        
 
         month_production_qty,temp,month_actual_boxes = get_act_data_pouring(start_date,end_date,j.item_code)
-        total_cavity_and_box_weight = frappe.db.sql("""
-														SELECT b.item_code, b.qty as cavity,a.box_weight
-														FROM `tabPattern Master` a
-														LEFT JOIN `tabCasting Material Details` b ON a.name = b.parent
-														WHERE b.item_code = %s
-                                                        LIMIT 1
-													""",(j.item_code),as_dict="True")
+        # total_cavity_and_box_weight = frappe.db.sql("""
+		# 												SELECT b.qty as cavity,a.box_weight
+		# 												FROM `tabPattern Master` a
+		# 												LEFT JOIN `tabCasting Material Details` b ON a.name = b.parent
+		# 												WHERE b.item_code = %s
+        #                                                 LIMIT 1
+		# 											""",(j.item_code),as_dict="True")
+        # total_cavity_and_box_weight = frappe.get_value("Casting Material Details",{'parent':"PATTERN WEDGE PLATE-5*0.6",'item_code':"AFPL-CAST-082"},["grade"])
+        # frappe.throw(str(total_cavity_and_box_weight))
         
  
         dict = {}
-        dict['part_name'] = j.item_name
-        dict['part_code'] = j.item_code
-        dict['part_no'] = frappe.get_value("Item",{"name":j.item_code},"custom_part_number")
-        dict['weight'] = j.weight_per_unit_quantity if j.weight_per_unit_quantity else 0
-        dict['qty'] = j.schedule_quantity if j.schedule_quantity else 0
-        dict['grade_type'] = frappe.get_value("Grade Master",frappe.get_value("Item",{"name":j.item_code},"custom_grade"),"grade_type")
-        dict['production_qty'] = month_production_qty
-        dict['total_weight'] =  (dict['production_qty']) * (dict['weight'])
-        dict['achievement_in_per'] =  (dict['production_qty']/j.schedule_quantity)*100 
-        dict['pending_qty'] = j.schedule_quantity - dict['production_qty']
-        dict['pending_weight'] = dict['pending_qty']*dict['weight']
-        dict['cavity'] =  total_cavity_and_box_weight[0]['cavity'] if total_cavity_and_box_weight and total_cavity_and_box_weight[0]['cavity'] else 0
-        dict['box_weight'] =  total_cavity_and_box_weight[0]['box_weight'] if total_cavity_and_box_weight and total_cavity_and_box_weight[0]['box_weight'] else 0
-        dict['no_boxes_actual'] = month_actual_boxes
-        dict['no_boxes_heat'] = 500 / dict['box_weight'] if dict['box_weight'] else 0
-        dict['no_qty_per_heat'] = dict['cavity']*dict['no_boxes_heat']
-        dict['pending_heats'] = math.ceil(dict['pending_qty']/dict['no_qty_per_heat']) if dict['no_qty_per_heat'] else 0
-        dict['schedule_wise_heats'] = math.ceil(dict['qty']/dict['no_qty_per_heat']) if dict['no_qty_per_heat'] else 0
+        # dict['part_name'] = j.item_name
+        # dict['part_code'] = j.item_code
+        # # dict['part_no'] = frappe.get_value("Item",{"name":j.item_code},"custom_part_number")
+        # # dict['pattern'] = frappe.get_value("Item",{"name":j.item_code},"custom_part_number")
+        # dict['weight'] = j.weight_per_unit_quantity if j.weight_per_unit_quantity else 0
+        # dict['qty'] = j.schedule_quantity if j.schedule_quantity else 0
+        # dict['grade_type'] = frappe.get_value("Grade Master",frappe.get_value("Item",{"name":j.item_code},"custom_grade"),"grade_type")
+        # dict['production_qty'] = month_production_qty
+        # dict['total_weight'] =  (dict['production_qty']) * (dict['weight'])
+        # dict['achievement_in_per'] =  (dict['production_qty']/j.schedule_quantity)*100 
+        # dict['pending_qty'] = j.schedule_quantity - dict['production_qty']
+        # dict['pending_weight'] = dict['pending_qty']*dict['weight']
+        # # dict['cavity'] =  total_cavity_and_box_weight[0]['cavity'] if total_cavity_and_box_weight and total_cavity_and_box_weight[0]['cavity'] else 0
+        # # dict['box_weight'] =  total_cavity_and_box_weight[0]['box_weight'] if total_cavity_and_box_weight and total_cavity_and_box_weight[0]['box_weight'] else 0
+        # dict['no_boxes_actual'] = month_actual_boxes
+        # dict['no_boxes_heat'] = 500 / dict['box_weight'] if dict['box_weight'] else 0
+        # dict['no_qty_per_heat'] = dict['cavity']*dict['no_boxes_heat']
+        # dict['pending_heats'] = math.ceil(dict['pending_qty']/dict['no_qty_per_heat']) if dict['no_qty_per_heat'] else 0
+        # dict['schedule_wise_heats'] = math.ceil(dict['qty']/dict['no_qty_per_heat']) if dict['no_qty_per_heat'] else 0
         
       
         
-        week_qty = week_wt = weak_heat = week_actqty = week_actheat = week_actwt = 0
-        total_week_qty = total_week_wt = total_week_heat = total_week_actqty = total_week_actheat = total_week_actwt = 0
-        for k in daywise_doc.get("item_pouring_schedule", filters = {'item_code': j.item_code}):
-            m = (int(str(k.planning_date)[-2:])) # get last two digits of date for dictionary key
-            day_of_week = calendar.weekday(year, month, m)
-            if day_of_week != calendar.TUESDAY:
-                act_production_qty , act_heat,temp = get_act_data_pouring(k.planning_date , k.planning_date , j.item_code)
+       
+        
+        # set1 = set()
+        
+        daily_item_child_data  = frappe.db.sql("""
+                                                    SELECT a.pattern , a.item_code
+                                                    FROM `tabDaywise Pouring Schedule Items` a
+                                                    WHERE a.parent =  %s AND a.item_code = %s
+                                                    GROUP BY a.pattern
+                                                """,(full_month_year , j.item_code),as_dict="True")
+        # frappe.msgprint(str(daily_item_child_data))
+        for l in daily_item_child_data:
+            
+            week_qty = week_wt = weak_heat = week_actqty = week_actheat = week_actwt = 0
+            total_week_qty = total_week_wt = total_week_heat = total_week_actqty = total_week_actheat = total_week_actwt = 0
+            dict['pattern'] = l.pattern
+            cavity = frappe.get_value("Casting Material Details",{'parent':l.pattern},"qty")
+            dict['cavity'] = cavity if cavity else 0
+            dict['box_weight'] = frappe.get_value("Pattern Master",{'name':l.pattern},"box_weight")
+
+            dict['part_name'] = j.item_name
+            dict['part_code'] = j.item_code
+            # dict['part_no'] = frappe.get_value("Item",{"name":j.item_code},"custom_part_number")
+            # dict['pattern'] = frappe.get_value("Item",{"name":j.item_code},"custom_part_number")
+            dict['weight'] = j.weight_per_unit_quantity if j.weight_per_unit_quantity else 0
+            dict['qty'] = j.schedule_quantity if j.schedule_quantity else 0
+            dict['grade_type'] = frappe.get_value("Grade Master",frappe.get_value("Item",{"name":j.item_code},"custom_grade"),"grade_type")
+            dict['production_qty'] = month_production_qty
+            dict['total_weight'] =  (dict['production_qty']) * (dict['weight'])
+            dict['achievement_in_per'] =  (dict['production_qty']/j.schedule_quantity)*100 
+            dict['pending_qty'] = j.schedule_quantity - dict['production_qty']
+            dict['pending_weight'] = dict['pending_qty']*dict['weight']
+            # dict['cavity'] =  total_cavity_and_box_weight[0]['cavity'] if total_cavity_and_box_weight and total_cavity_and_box_weight[0]['cavity'] else 0
+            # dict['box_weight'] =  total_cavity_and_box_weight[0]['box_weight'] if total_cavity_and_box_weight and total_cavity_and_box_weight[0]['box_weight'] else 0
+            dict['no_boxes_actual'] = month_actual_boxes
+            dict['no_boxes_heat'] = 500 / dict['box_weight'] if dict['box_weight'] else 0
+            dict['no_qty_per_heat'] = dict['cavity']*dict['no_boxes_heat']
+            dict['pending_heats'] = math.ceil(dict['pending_qty']/dict['no_qty_per_heat']) if dict['no_qty_per_heat'] else 0
+            dict['schedule_wise_heats'] = math.ceil(dict['qty']/dict['no_qty_per_heat']) if dict['no_qty_per_heat'] else 0
+            for k in daywise_doc.get("item_pouring_schedule", filters = {'item_code': j.item_code , 'pattern' : l.pattern }):
+                m = (int(str(k.planning_date)[-2:])) # get last two digits of date for dictionary key
+                day_of_week = calendar.weekday(year, month, m)
+                if day_of_week != calendar.TUESDAY:
+                    act_production_qty , act_heat , temp = get_act_data_pouring_pattern_wise(k.planning_date , k.planning_date , j.item_code , l.pattern)
+                    
+                    # dict['pattern'] = pattern
+                    # frappe.msgprint(str(l.pattern))
+                    
+                    dict[f"{m}_{month_name}_qty"] = k.planned_quantity
+                    dict[f"{m}_{month_name}_wt"] = k.planned_weight
+                    dict[f"{m}_{month_name}_heat"] = k.planed_pouring_count   
+                    dict[f"{m}_{month_name}_actqty"] = act_production_qty if act_production_qty else 0
+                    dict[f"{m}_{month_name}_actheat"] = act_heat if act_heat else 0
+                    dict[f"{m}_{month_name}_actwt"] = f"{round(dict['weight'] * act_production_qty if act_production_qty else 0, 3):.3f}"
+                    
+                    week_qty +=float(k.planned_quantity)
+                    week_wt += float(k.planned_weight)
+                    weak_heat += float(k.planed_pouring_count)
+                    week_actqty += act_production_qty if act_production_qty else 0
+                    week_actheat += act_heat if act_heat else 0
+                    week_actwt += dict['weight']*act_production_qty if act_production_qty else 0
+                    # frappe.msgprint(str(week_qty))
+                    total_week_qty += float(k.planned_quantity)
+                    total_week_wt += float(k.planned_weight)
+                    total_week_heat += float(k.planed_pouring_count)
+                    total_week_actqty+=act_production_qty if act_production_qty else 0
+                    total_week_actheat+=act_heat if act_heat else 0
+                    total_week_actwt += dict['weight']*act_production_qty if act_production_qty else 0
+                else:
+                    dict[f"{m}_{month_name}_qty"] = f"{week_qty:.3f}"
+                    dict[f"{m}_{month_name}_wt"] = f"{week_wt:.3f}"
+                    dict[f"{m}_{month_name}_heat"] = f"{weak_heat:.3f}"
+                    dict[f"{m}_{month_name}_actqty"] = f"{week_actqty:.3f}"
+                    dict[f"{m}_{month_name}_actheat"] = f"{week_actheat:.3f}"
+                    dict[f"{m}_{month_name}_actwt"] = f"{week_actwt:.3f}"
+                    week_qty = week_wt = weak_heat = week_actqty = week_actheat = week_actwt = 0
+
                 
+            dict[f"{num_days+1}_{month_name}_qty"] = f"{total_week_qty:.3f}"
+            dict[f"{num_days+1}_{month_name}_wt"] = f"{total_week_wt:.3f}"
+            dict[f"{num_days+1}_{month_name}_heat"] = f"{total_week_heat:.3f}"
+            dict[f"{num_days+1}_{month_name}_actqty"] = f"{total_week_actqty:.3f}"
+            dict[f"{num_days+1}_{month_name}_actheat"] = f"{total_week_actheat:.3f}"
+            dict[f"{num_days+1}_{month_name}_actwt"] = f"{total_week_actwt:.3f}"
+            dict[f"{num_days+2}_{month_name}_pendingqty"] = dict['pending_qty']
+
                 
-                dict[f"{m}_{month_name}_qty"] = k.planned_quantity
-                dict[f"{m}_{month_name}_wt"] = k.planned_weight
-                dict[f"{m}_{month_name}_heat"] = k.planed_pouring_count   
-                dict[f"{m}_{month_name}_actqty"] = act_production_qty if act_production_qty else 0
-                dict[f"{m}_{month_name}_actheat"] = act_heat if act_heat else 0
-                dict[f"{m}_{month_name}_actwt"] = f"{round(dict['weight'] * act_production_qty if act_production_qty else 0, 3):.3f}"
-                # dict[f"{m}_{month_name}_actwt"] = (dict['weight']*act_production_qty if act_production_qty else 0.000)
-                # dict[f"{m}_{month_name}_actwt"] = round((dict['weight']*act_production_qty if act_production_qty else 0),3)
-                
-                week_qty +float(k.planned_quantity)
-                week_wt += float(k.planned_weight)
-                weak_heat += float(k.planed_pouring_count)
-                week_actqty += act_production_qty if act_production_qty else 0
-                week_actheat += act_heat if act_heat else 0
-                week_actwt += dict['weight']*act_production_qty if act_production_qty else 0
-                
-                total_week_qty += float(k.planned_quantity)
-                total_week_wt += float(k.planned_weight)
-                total_week_heat += float(k.planed_pouring_count)
-                total_week_actqty+=act_production_qty if act_production_qty else 0
-                total_week_actheat+=act_heat if act_heat else 0
-                total_week_actwt += dict['weight']*act_production_qty if act_production_qty else 0
-            else:
-                dict[f"{m}_{month_name}_qty"] = f"{week_qty:.3f}"
-                dict[f"{m}_{month_name}_wt"] = f"{week_wt:.3f}"
-                dict[f"{m}_{month_name}_heat"] = f"{weak_heat:.3f}"
-                dict[f"{m}_{month_name}_actqty"] = f"{week_actqty:.3f}"
-                dict[f"{m}_{month_name}_actheat"] = f"{week_actheat:.3f}"
-                dict[f"{m}_{month_name}_actwt"] = f"{week_actwt:.3f}"
-                week_qty = week_wt = weak_heat = week_actqty = week_actheat = week_actwt = 0
-                
-        dict[f"{num_days+1}_{month_name}_qty"] = f"{total_week_qty:.3f}"
-        dict[f"{num_days+1}_{month_name}_wt"] = f"{total_week_wt:.3f}"
-        dict[f"{num_days+1}_{month_name}_heat"] = f"{total_week_heat:.3f}"
-        dict[f"{num_days+1}_{month_name}_actqty"] = f"{total_week_actqty:.3f}"
-        dict[f"{num_days+1}_{month_name}_actheat"] = f"{total_week_actheat:.3f}"
-        dict[f"{num_days+1}_{month_name}_actwt"] = f"{total_week_actwt:.3f}"
-        dict[f"{num_days+2}_{month_name}_pendingqty"] = dict['pending_qty']
-        # frappe.msgprint(str(dict))
-               
-        data.append(dict)
+            data.append(dict)
+            dict= {'pending_qty': dict['pending_qty'] , 'weight' : dict['weight']}
+            
     
     # Total Sum    
     # dict1 = {}
@@ -228,5 +277,19 @@ def get_act_data_pouring(from_date , to_date , item_code):
     production_qty = total_qty_of_items[0]['production_qty'] if total_qty_of_items and total_qty_of_items[0]['production_qty'] else 0
     heat = total_qty_of_items[0]['heat'] if total_qty_of_items and total_qty_of_items[0]['heat'] else 0
     actual_boxes = total_qty_of_items[0]['actual_boxes'] if total_qty_of_items and total_qty_of_items[0]['actual_boxes'] else 0 
+    # pattern = total_qty_of_items[0]['pattern']
     return production_qty , heat, actual_boxes
 
+def get_act_data_pouring_pattern_wise(from_date , to_date , item_code , pattern):
+    total_qty_of_items = frappe.db.sql("""
+														SELECT b.item_code, SUM(b.total_quantity) as production_qty,count(a.name) as heat,(b.total_quantity/b.quantitybox) as actual_boxes
+														FROM `tabPouring` a
+														LEFT JOIN `tabCasting Details` b ON a.name = b.parent
+														WHERE a.heat_date BETWEEN %s AND %s AND b.item_code = %s AND a.docstatus=1 AND pattern = %s
+													""",(from_date , to_date, item_code , pattern),as_dict="True")
+    
+    production_qty = total_qty_of_items[0]['production_qty'] if total_qty_of_items and total_qty_of_items[0]['production_qty'] else 0
+    heat = total_qty_of_items[0]['heat'] if total_qty_of_items and total_qty_of_items[0]['heat'] else 0
+    actual_boxes = total_qty_of_items[0]['actual_boxes'] if total_qty_of_items and total_qty_of_items[0]['actual_boxes'] else 0 
+    # pattern = total_qty_of_items[0]['pattern'] if total_qty_of_items[0]['pattern'] else ""
+    return production_qty , heat, actual_boxes

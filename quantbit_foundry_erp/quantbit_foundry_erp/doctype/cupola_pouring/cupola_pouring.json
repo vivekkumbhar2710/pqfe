@@ -199,7 +199,7 @@
   },
   {
    "fieldname": "naming_fields",
-   "fieldtype": "Data",
+   "fieldtype": "Long Text",
    "hidden": 1,
    "label": "Naming Fields",
    "read_only": 1
@@ -213,13 +213,15 @@
    "fieldtype": "Table",
    "in_standard_filter": 1,
    "label": "Pattern Details",
-   "options": "Cupola Pattern Details"
+   "options": "Cupola Pattern Details",
+   "reqd": 1
   },
   {
    "fieldname": "casting_details",
    "fieldtype": "Table",
    "label": "Casting Details",
-   "options": "Cupola Casting Details"
+   "options": "Cupola Casting Details",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_uqige",
@@ -490,13 +492,9 @@
   {
    "link_doctype": "Stock Entry",
    "link_fieldname": "custom_cupola_pouring"
-  },
-  {
-   "link_doctype": "Material Request",
-   "link_fieldname": "custom_cupola_pouring"
   }
  ],
- "modified": "2024-02-15 13:19:39.952706",
+ "modified": "2024-06-18 17:10:32.213885",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Cupola Pouring",

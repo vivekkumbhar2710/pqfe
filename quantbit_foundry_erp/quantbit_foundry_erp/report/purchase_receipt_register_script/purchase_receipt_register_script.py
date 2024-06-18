@@ -77,7 +77,7 @@ def get_columns():
 			"label": "Rejected Quantity"
 		},
 		{
-			"fieldname": "total_weight",
+			"fieldname": "custom_weight",
 			"fieldtype": "Float",
 			"label": "Weight",
 		},
@@ -132,7 +132,7 @@ def get_data(filters):
 						i.uom 'uom', 
 						i.qty 'qty', 
 						i.rejected_qty 'rejected_qty',
-						i.total_weight 'total_weight', 
+						i.custom_weight 'custom_weight', 
 						i.rate 'rate', 
 						i.amount 'amount',
 						p.vehicle_no 'vehicle_no',
@@ -147,7 +147,7 @@ def get_data(filters):
 	
 
 	if item_group:
-		add_condition(conditions, params, "i.item_group = %s", item_group)
+		add_condition(conditions, params, "i.item_group in %s", item_group)
 
 	if conditions:
 		sql_query += " AND " + " AND ".join(conditions)
@@ -156,4 +156,3 @@ def get_data(filters):
 	data = frappe.db.sql(sql_query, tuple(params), as_dict=True)
 	# frappe.throw(str(data))
 	return data
- 

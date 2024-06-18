@@ -34,7 +34,7 @@ def get_columns(filters):
 			"label": "Supervisor_ID",
 			"options": "Supervisor Master",
 		},
-				{
+		{
 			"fieldname": "Supervisor_Name",
 			"fieldtype": "Link",
 			"label": "Supervisor Name",
@@ -111,38 +111,6 @@ def get_columns(filters):
 			"label": "Total_Quantity",
 			"options": "Casting Details",
 		},
-		# {
-		# 	"fieldname": "CR_Weight",
-		# 	"fieldtype": "Float",
-		# 	"label": "CR Weight",
-		# },
-		# 		{
-		# 	"fieldname": "MR_QTY",
-		# 	"fieldtype": "Float",
-		# 	"label": "MR QTY",
-		# 	# "options": "Item",
-		# },
-		# {
-		# 	"fieldname": "MR_Weight",
-		# 	"fieldtype": "Float",
-		# 	"label": "MR Weight",
-		# },
-		# {
-		# 	"fieldname": "RW_QTY",
-		# 	"fieldtype": "Float",
-		# 	"label": "RW QTY",
-		# 	# "options": "Item",
-		# },
-		# {
-		# 	"fieldname": "RW_Weight",
-		# 	"fieldtype": "Float",
-		# 	"label": "RW Weight",
-		# },
-		# {
-		# 	"fieldname": "Total_QTY",
-		# 	"fieldtype": "float",
-		# 	"label": "Total QTY",
-		# },
 		{
 			"fieldname": "Total_Weight",
 			"fieldtype": "Float",
@@ -156,7 +124,7 @@ def get_columns(filters):
 		},
 		{
 			"fieldname": "Good_Casting_Weight",
-			"fieldtype": "float",
+			"fieldtype": "Float",
 			"label": "Good Casting Weight",
 		},
 		{
@@ -187,11 +155,11 @@ def get_data(filters):
 	
 	from_date = filters.get('from_date')
 	to_date =  filters.get('to_date')
-	operator_id = filters.get('operator_name')
-	operator_name = frappe.get_value('Operator Master' ,operator_id , 'operator_name' )
+	Operator_ID = filters.get('Operator_ID')
+	# operator_name = frappe.get_value('Operator Master' ,operator_id , 'operator_name' )
 
 	# frappe.throw(str(operator_id))
-	supervisor_name =  filters.get('supervisor_name')
+	# supervisor_name =  filters.get('supervisor_name')
 	Casting_Item_Name =  filters.get('Casting_Item_Code')
 	company =  filters.get('company')
 	conditions = []
@@ -214,9 +182,9 @@ def get_data(filters):
 					p.shift 'Shift',
 					c.item_code 'Casting_Item_Code',
 					c.item_name 'Casting_Item_Name',
-					SUM(p.power_consumed) 'Power_Consumed',
-    				SUM(p.normal_loss) 'Burning_Loss_Weight',
-					(SUM(p.normal_loss) / SUM(c.total_weight)) * 100 "Percentage_Burning_Loss",
+					((p.power_consumed * c.total_weight)/p.total_pouring_weight) 'Power_Consumed',
+    				((p.normal_loss * c.total_weight)/p.total_pouring_weight) 'Burning_Loss_Weight',
+					(((p.normal_loss * c.total_weight)/p.total_pouring_weight)/ SUM(c.total_weight)) * 100 "Percentage_Burning_Loss",
     				SUM((SELECT SUM(d.poured_boxes)FROM `tabPattern Details` d WHERE p.name = d.parent)) AS 'Poured_Boxes',
 					SUM(c.quantitybox) 'Box_Quantity',
 					SUM(c.short_quantity) 'Short_Quantity',
@@ -241,21 +209,23 @@ def get_data(filters):
 				"""
 
 
+
+
+	if Operator_ID:
+		conditions.append("p.operator in %s")
+		# params["operator_name"] = operator_name
+		params.append(Operator_ID)
+
 	# if production_item:
 	# 	conditions.append("wo.production_item = %s")
 	# 	params.append(production_item)
 
-	if operator_name:
-		conditions.append("p.operator_name = %s")
-		# params["operator_name"] = operator_name
-		params.append(operator_name)
-
-	if supervisor_name:
-		conditions.append("p.supervisor_name = %s")
-		params.append(supervisor_name)
+	# if supervisor_name:
+	# 	conditions.append("p.supervisor_name = %s")
+	# 	params.append(supervisor_name)
 
 	if Casting_Item_Name:
-		conditions.append("c.item_code = %s")
+		conditions.append("c.item_code in %s")
 		params.append(Casting_Item_Name)
 
 	if conditions:
@@ -264,5 +234,6 @@ def get_data(filters):
 	sql_query += """ GROUP BY p.name, p.heat_date, p.company, p.supervisor, p.operator, p.shift, c.item_code """
 
 	# frappe.throw(str(params))
+	# frappe.throw(str(sql_query)+'======'+str(params))
 	data = frappe.db.sql(sql_query, tuple(params), as_dict=True)
 	return data

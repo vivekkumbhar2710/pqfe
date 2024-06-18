@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": "Phadke  Ferrocast Pvt. Ltd.",
- "modified": "2024-05-14 10:33:05.606013",
+ "modified": "2024-06-12 13:26:58.720524",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Item wise Daily Production Script",
@@ -22,6 +22,12 @@
  "roles": [
   {
    "role": "System Manager"
+  },
+  {
+   "role": "Foundry Operator"
+  },
+  {
+   "role": "Foundry Supervisor"
   }
  ]
 }

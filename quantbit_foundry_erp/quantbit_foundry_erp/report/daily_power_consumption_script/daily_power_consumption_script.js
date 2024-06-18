@@ -27,23 +27,51 @@ frappe.query_reports["Daily Power Consumption Script"] = {
 		},
 		{
 			fieldname: "furnece",
-			fieldtype: "Link",
-			label: "Furnace",
+			label: __("Furnece"),
+			fieldtype: "MultiSelectList",
 			options: "Furnece Master",
+			get_data: function(txt) {
+				return frappe.db.get_link_options("Furnece Master", txt);
+			},
 			
 		},
+		{
+			fieldname: "Operator_ID",
+			label: __("Operator Name"),
+			fieldtype: "MultiSelectList",
+			options: "Operator Master",
+			get_data: function(txt) {
+				return frappe.db.get_link_options("Operator Master", txt);
+			},
+			reqd: 0,
+		},
+		{
+			fieldname: "Supervisor_ID",
+			label: __("Supervisor Name"),
+			fieldtype: "MultiSelectList",
+			options: "Supervisor Master",
+			get_data: function(txt) {
+				return frappe.db.get_link_options("Supervisor Master", txt);
+			},
+			reqd: 0,
+		},
 		// {
-		// 	fieldname: "Casting_Treatment",
+		// 	fieldname: "furnece",
 		// 	fieldtype: "Link",
-		// 	label: "Casting Treatment",
-		// 	options: "Casting Treatment Master",
+		// 	label: "Furnace",
+		// 	options: "Furnece Master",	
 		// },
-
 		// {
-		// 	fieldname: "route",
+		// 	fieldname: "Operator_ID",
 		// 	fieldtype: "Link",
-		// 	label: "Route",
-		// 	options: "Route Master",
+		// 	label: "Operator Name",
+		// 	options: "Operator Master",
+		// },
+		// {
+		// 	fieldname: "Supervisor_ID",
+		// 	fieldtype: "Link",
+		// 	label: "Supervisor Name",
+		// 	options: "Supervisor Master",
 		// },
 	]
 };

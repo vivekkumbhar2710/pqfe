@@ -10,18 +10,25 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": "",
- "modified": "2024-05-14 12:03:14.011505",
+ "modified": "2024-06-12 13:26:35.584232",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Heat Wise Daily Production Script",
  "owner": "mayuresh.bhosale@erpdata.in",
  "prepared_report": 0,
+ "query": "",
  "ref_doctype": "Pouring",
  "report_name": "Heat Wise Daily Production Script",
  "report_type": "Script Report",
  "roles": [
   {
    "role": "System Manager"
+  },
+  {
+   "role": "Foundry Operator"
+  },
+  {
+   "role": "Foundry Supervisor"
   }
  ]
 }

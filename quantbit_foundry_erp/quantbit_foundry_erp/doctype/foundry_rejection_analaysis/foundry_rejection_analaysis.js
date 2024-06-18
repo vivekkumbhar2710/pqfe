@@ -105,7 +105,7 @@ frappe.ui.form.on('Foundry Rejection Analaysis', {
                         // frm.set_query("outsourcing_job_work", "rejection_analysis_outsourcing_job_work", function(doc, cdt, cdn) {
 						frm.fields_dict.sales_invoice.get_query = function (doc, cdt, cdn) {
 					        // let d = locals[cdt][cdn];
-                            return {
+                            return { 
                                 filters: [
                                     ['Sales Invoice','name','in', k],
                                     ["Sales Invoice", "company", '=', frm.doc.company],

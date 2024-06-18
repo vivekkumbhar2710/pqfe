@@ -126,7 +126,7 @@ def get_data(filters):
 						
                 """
 	if item:
-		add_condition(conditions, params, "dni.item_code= %s", item)
+		add_condition(conditions, params, "dni.item_code in %s", item)
 
 	if conditions:
 		sql_query += " AND " + " AND ".join(conditions)

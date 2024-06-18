@@ -29,6 +29,18 @@ def get_columns(filters):
 			"options": "Furnece Master",
 		},
 		{
+			"fieldname": "Operator_Name",
+			"fieldtype": "Link",
+			"label": "Operator Name",
+			"options": "Operator Master",
+		},
+		{
+			"fieldname": "Supervisor_Name",
+			"fieldtype": "Link",
+			"label": "Supervisor Name",
+			"options": "Supervisor Master",
+		},
+		{
 			"fieldname": "Heat_Count",
 			"fieldtype": "Data",
 			"label": "Heat Count",
@@ -37,7 +49,7 @@ def get_columns(filters):
 		},
 		{
 			"fieldname": "Burning_Loss_Weight",
-			"fieldtype": "Data",
+			"fieldtype": "Float",
 			"label": "Burning Loss Weight",
 			# "options": "Pouring",
 			
@@ -64,6 +76,25 @@ def get_columns(filters):
 			
 		},
 		{
+			"fieldname": "Power_Consumption_per_MT",
+			"fieldtype": "Float",
+			"label": "Power Consumption per MT",
+			# "options": "Pouring",
+			"precision" : "2",			
+		},		
+		{
+			"fieldname": "Operator_ID",
+			"fieldtype": "Link",
+			"label": "Operator ID",
+			"options": "Operator Master",
+		},
+		{
+			"fieldname": "Supervisor_ID",
+			"fieldtype": "Link",
+			"label": "Supervisor ID",
+			"options": "Supervisor Master",
+		},		
+		{
 			"fieldname": "Company",
 			"fieldtype": "float",
 			"label": "Company",
@@ -77,8 +108,8 @@ def get_data(filters):
 	from_date = filters.get('from_date')
 	to_date =  filters.get('to_date')
 	Furnace = filters.get('furnece')
-	# supervisor_name =  filters.get('supervisor_name')
-	# Casting_Treatment =  filters.get('Casting_Treatment')
+	Operator_Name =  filters.get('Operator_ID')
+	Supervisor_Name =  filters.get('Supervisor_ID')
 	company =  filters.get('company')
 	conditions = []
 	params = [from_date, to_date , company]
@@ -92,6 +123,8 @@ def get_data(filters):
 				select 
 					heat_date "Heat_Date",
 					furnece "Furnace",
+					operator_name "Operator_Name",
+					supervisor_name "Supervisor_Name",
 					COUNT(name) AS "Heat_Count",
 					SUM(normal_loss) "Burning_Loss_Weight",
 					SUM(total_pouring_weight) "Total_pouring_weight",
@@ -99,6 +132,9 @@ def get_data(filters):
 					#sum(power_reading_initial) "PowerReading Initial",
 					#sum(power_reading_final) "Power Reading Final",
 					sum(power_consumed) "Power_Consumed",
+					(sum(power_consumed)/(SUM(total_pouring_weight)/1000)) "Power_Consumption_per_MT",
+					operator "Operator_ID",
+					supervisor "Supervisor_ID",
 					company "Company"
 				from 
 					`tabPouring`
@@ -110,17 +146,18 @@ def get_data(filters):
 
 
 	if Furnace:
-		conditions.append("furnece = %s")
-		params.append(str(Furnace))
+		conditions.append("furnece in %s")
+		params.append(Furnace)
 		# params["operator_name"] = operator_name
 
-	# if operator_name:
-	# 	conditions.append("c.operator_name = %s")
-	# 	params["operator_name"] = operator_name
+	if Operator_Name:
+		
+		conditions.append("operator in %s")
+		params.append(Operator_Name)
 
-	# if supervisor_name:
-	# 	conditions.append("c.supervisor_name = %s")
-	# 	params.append(supervisor_name)
+	if Supervisor_Name:
+		conditions.append("supervisor in %s")
+		params.append(Supervisor_Name)
 
 	# if Casting_Treatment:
 	# 	conditions.append("c.casting_treatment = %s")
@@ -129,8 +166,8 @@ def get_data(filters):
 	if conditions:
 		sql_query += " AND " + " AND ".join(conditions)
 
-	sql_query += """ GROUP BY heat_date,furnece """
+	sql_query += """ GROUP BY heat_date,furnece,operator,supervisor,company """
 
-	# frappe.throw(str(params))
+	# frappe.throw(str(sql_query)+'======'+str(params))
 	data = frappe.db.sql(sql_query, tuple(params), as_dict=True)
 	return data

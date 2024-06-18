@@ -175,7 +175,8 @@
    "fieldname": "casting_details",
    "fieldtype": "Table",
    "label": "Casting Details",
-   "options": "Casting Details"
+   "options": "Casting Details",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_l5paf",
@@ -574,7 +575,7 @@
    "table_fieldname": "select_pouring"
   }
  ],
- "modified": "2024-05-13 23:19:31.414059",
+ "modified": "2024-06-18 21:30:25.703064",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Pouring",

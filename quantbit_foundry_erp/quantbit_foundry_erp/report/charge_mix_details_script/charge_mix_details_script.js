@@ -27,11 +27,21 @@ frappe.query_reports["Charge Mix Details Script"] = {
 		},
 		{
 			fieldname: "Pouring_Id",
-			fieldtype: "Link",
-			label: "Pouring Id",
+			label: __("Pouring Id"),
+			fieldtype: "MultiSelectList",
 			options: "Pouring",
-			
+			get_data: function(txt) {
+				return frappe.db.get_link_options("Pouring", txt);
+			},
+			reqd: 0,
 		},
+		// {
+		// 	fieldname: "Pouring_Id",
+		// 	fieldtype: "Link",
+		// 	label: "Pouring Id",
+		// 	options: "Pouring",
+			
+		// },
 		{
 			fieldname: "Heat_No",
 			fieldtype: "Data",

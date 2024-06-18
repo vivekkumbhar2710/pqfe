@@ -30,9 +30,9 @@ def get_columns(filters):
 		},
 		{
 			"fieldname": "Heat_No.",
-			"fieldtype": "Link",
+			"fieldtype": "Data",
 			"label": "Heat No",
-			"options": "Pouring",
+			# "options": "Pouring",
 		},
 		{
 			"fieldname": "Operator_ID",
@@ -59,6 +59,18 @@ def get_columns(filters):
 			"options": "Supervisor Master",
 		},
 		{
+			"fieldname": "Contractor_ID",
+			"fieldtype": "Link",
+			"label": "Contractor ID",
+			"options": "Supplier",
+		},
+				{
+			"fieldname": "Contractor_Name",
+			"fieldtype": "Link",
+			"label": "Contractor Name",
+			"options": "Supplier",
+		},
+		{
 			"fieldname": "Shift",
 			"fieldtype": "Link",
 			"label": "Shift",
@@ -83,16 +95,11 @@ def get_columns(filters):
 			# "options": "Item",
 		},
 		{
-			"fieldname": "Burning_Loss_Weight",
+			"fieldname": "Power_Consumption_per_MT",
 			"fieldtype": "Float",
-			"label": "Burning Loss Weight",
+			"label": "Power Consumption per MT",
 			# "options": "Item",
-		},
-		{
-			"fieldname": "Percentage_Burning_Loss",
-			"fieldtype": "Float",
-			"label": "Percentage Burning Loss",
-			# "options": "Item",
+			"precision" : "2",
 		},		
 		{
 			"fieldname": "Poured_Boxes",
@@ -118,6 +125,11 @@ def get_columns(filters):
 			"options": "Casting Details",
 		},
 		{
+			"fieldname": "Raw_Material_Used",
+			"fieldtype": "Float",
+			"label": "RM Consumed Weight",
+		},
+		{
 			"fieldname": "Total_Weight",
 			"fieldtype": "Float",
 			"label": "Total Weight",
@@ -129,8 +141,26 @@ def get_columns(filters):
 		},
 		{
 			"fieldname": "Good_Casting_Weight",
-			"fieldtype": "float",
+			"fieldtype": "Float",
 			"label": "Good Casting Weight",
+		},
+		{
+			"fieldname": "Burning_Loss_Weight",
+			"fieldtype": "Float",
+			"label": "Burning Loss Weight",
+			# "options": "Item",
+		},
+		{
+			"fieldname": "Percentage_Burning_Loss",
+			"fieldtype": "Float",
+			"label": "Percentage Burning Loss",
+			# "options": "Item",
+		},
+		{
+			"fieldname": "Heat_Count",
+			"fieldtype": "Float",
+			"label": "Heat Count",
+			# "options": "Item",
 		},
 		{
 			"fieldname": "Company",
@@ -139,53 +169,7 @@ def get_columns(filters):
 			"options": "Company",
 			
 		},
-		# {
-		# 	"fieldname": "CR_Weight",
-		# 	"fieldtype": "Float",
-		# 	"label": "CR Weight",
-		# },
-		# {
-		# 	"fieldname": "MR_QTY",
-		# 	"fieldtype": "Float",
-		# 	"label": "MR QTY",
-		# 	# "options": "Item",
-		# },
-		# {
-		# 	"fieldname": "MR_Weight",
-		# 	"fieldtype": "Float",
-		# 	"label": "MR Weight",
-		# },
-		# {
-		# 	"fieldname": "RW_QTY",
-		# 	"fieldtype": "Float",
-		# 	"label": "RW QTY",
-		# 	# "options": "Item",
-		# },
-		# {
-		# 	"fieldname": "RW_Weight",
-		# 	"fieldtype": "Float",
-		# 	"label": "RW Weight",
-		# },
-		# {
-		# 	"fieldname": "Total_QTY",
-		# 	"fieldtype": "float",
-		# 	"label": "Total QTY",
-		# },		
-		# {
-		# 	"fieldname": "Supervisor_ID",
-		# 	"fieldtype": "float",
-		# 	"label": "Supervisor ID",
-		# },
-		# {
-		# 	"fieldname": "Finished_Item",
-		# 	"fieldtype": "float",
-		# 	"label": "Finished Item",
-		# },
-		# {
-		# 	"fieldname": "Company",
-		# 	"fieldtype": "float",
-		# 	"label": "Company",
-		# },
+		
 	]
 
 
@@ -193,9 +177,9 @@ def get_data(filters):
 	
 	from_date = filters.get('from_date')
 	to_date =  filters.get('to_date')
-	operator_name = filters.get('operator_name')
+	Operator_ID = filters.get('Operator_ID')
 	supervisor_name =  filters.get('supervisor_name')
-	Casting_Item_Name =  filters.get('Casting_Item_Name')
+	Casting_Item_Code =  filters.get('Casting_Item_Code')
 	company =  filters.get('company')
 	conditions = []
 	params = [from_date, to_date , company]
@@ -217,18 +201,22 @@ def get_data(filters):
 					p.supervisor_name 'Supervisor_Name',
 					p.operator 'Operator_ID',
 					p.operator_name 'Operator_Name',
+					p.contractor 'Contractor_ID',
+					p.contractor_name 'Contractor_Name',
 					p.shift 'Shift',
-					SUM(p.power_consumed) 'Power_Consumed',
-					SUM(p.normal_loss) 'Burning_Loss_Weight',
-					(SUM(p.normal_loss) / SUM(c.total_weight)) * 100 "Percentage_Burning_Loss",
+					((p.power_consumed * c.total_weight)/p.total_pouring_weight) 'Power_Consumed',
+					(((p.power_consumed * c.total_weight)/p.total_pouring_weight)/(SUM(c.total_weight)/1000)) "Power_Consumption_per_MT",
 					SUM((SELECT SUM(d.poured_boxes)FROM `tabPattern Details` d WHERE p.name = d.parent)) AS 'Poured_Boxes',
 					SUM(c.quantitybox) 'Box_Quantity',
 					SUM(c.short_quantity) 'Short_Quantity',
 					SUM(c.total_quantity) 'Total_Quantity',
-					#SUM(p.total_consumed_weight) 'Raw_Material_Used',
+					((p.total_consumed_weight * c.total_weight)/p.total_pouring_weight) 'Raw_Material_Used',  
 					SUM(c.total_weight) 'Total_Weight',
 					SUM(c.rr_weight_total) 'RR_Weight_For_Total_Quantity',
 					SUM(c.total_weight)- SUM(c.rr_weight_total) 'Good_Casting_Weight',
+					((p.normal_loss * c.total_weight)/p.total_pouring_weight) 'Burning_Loss_Weight',
+					(((p.normal_loss * c.total_weight)/p.total_pouring_weight) / SUM(c.total_weight)) * 100 "Percentage_Burning_Loss",
+					COUNT(p.name) 'Heat_Count',
 					p.company 'Company'
 				FROM
 					`tabPouring` p
@@ -247,17 +235,17 @@ def get_data(filters):
 	# 	conditions.append("wo.production_item = %s")
 	# 	params.append(production_item)
 
-	if operator_name:
-		conditions.append("p.operator_name = %s")
-		params["operator_name"] = operator_name
+	if Operator_ID:
+		conditions.append("p.operator in %s")
+		params.append(Operator_ID)
 
 	if supervisor_name:
 		conditions.append("p.supervisor_name = %s")
 		params.append(supervisor_name)
 
-	if Casting_Item_Name:
-		conditions.append("c.item_name = %s")
-		params.append(Casting_Item_Name)
+	if Casting_Item_Code:
+		conditions.append("c.item_code in %s")
+		params.append(Casting_Item_Code)
 
 	if conditions:
 		sql_query += " AND " + " AND ".join(conditions)

@@ -5,55 +5,25 @@ def execute(filters=None):
     columns, data = [], []
     columns = get_col(filters)
     data = get_data(filters)
-    if not data:
-        frappe.msgprint("No data")
     return columns, data
 
 def get_col(filters):
-    columns = [
-        {
-            "fieldname": "Customer ID","fieldtype": "Data","label": "Customer ID"
-        },
-        {
-            "fieldname": "Customer Name","fieldtype": "Data","label": "Customer Name"
-        },
-        {
-            "fieldname": "Out Challan No","fieldtype": "Data","label": "Out Challan No"
-        },
-        {
-            "fieldname": "In Challan No","fieldtype": "Data","label": "In Challan No"
-        },
-        {
-            "fieldname": "opening_qty","fieldtype": "Float","label": "Opening Qty"
-        },
-        {
-            "fieldname": "IN Qty","fieldtype": "Data","label": "In Qty"
-        },
-        {
-            "fieldname": "total_qty","fieldtype": "Float","label": "Total Qty"
-        },
-        {
-            "fieldname": "(OK) Return Quantity","fieldtype": "Float","label": "(OK) Return Quantity"
-        },
-        {
-            "fieldname": "As It Is","fieldtype": "Float","label": "As It Is"
-        },
-        {
-            "fieldname": "CR Rejection","fieldtype": "Float","label": "CR Rejection"
-        },
-        {
-            "fieldname": "MR Rejection","fieldtype": "Float","label": "MR Rejection"
-        },
-        {
-            "fieldname": "Other Rejection","fieldtype": "Float","label": "Other Rejection"
-        },
-        {
-            "fieldname": "Total Quantity","fieldtype": "Float","label": "Total Quantity"
-        },
-        {
-            "fieldname": "Balance","fieldtype": "Float","label": "Balance"
-        }
-    ]
+    columns = [{
+            "fieldname": "Customer ID","fieldtype": "Data","label": "Customer ID"},{
+            "fieldname": "Customer Name","fieldtype": "Data","label": "Customer Name"},{
+            "fieldname": "Out Challan No","fieldtype": "Data","label": "Out Challan No"},{
+            "fieldname": "In Challan No","fieldtype": "Data","label": "In Challan No"},{
+            "fieldname": "opening_qty","fieldtype": "Float","label": "Opening Qty"},{
+            "fieldname": "IN Qty","fieldtype": "Data","label": "In Qty"},{
+            "fieldname": "total_qty","fieldtype": "Float","label": "Total Qty"},{
+            "fieldname": "(OK) Return Quantity","fieldtype": "Float","label": "(OK) Return Quantity"},{
+            "fieldname": "As It Is","fieldtype": "Float","label": "As It Is"},{
+            "fieldname": "CR Rejection","fieldtype": "Float","label": "CR Rejection"},{
+            "fieldname": "MR Rejection","fieldtype": "Float","label": "MR Rejection"},{
+            "fieldname": "Other Rejection","fieldtype": "Float","label": "Other Rejection"},{
+            "fieldname": "Total Quantity","fieldtype": "Float","label": "Total Quantity"},{
+            "fieldname": "Balance","fieldtype": "Float","label": "Balance"}]
+    
     if filters.get("group_by") == "Group By Item":
         columns.insert(0, {"fieldname": "Item Code","fieldtype": "Data","label": "Item Code"})
         columns.insert(1,{"fieldname": "Item Name","fieldtype": "Data","label": "Item Name"})

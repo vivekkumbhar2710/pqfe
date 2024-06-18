@@ -26,18 +26,38 @@ frappe.query_reports["Item wise Daily Production Script"] = {
 			reqd: 1,
 		},
 		{
-			fieldname: "operator_name",
-			fieldtype: "Link",
-			label: "Operator Name",
+			fieldname: "Operator_ID",
+			label: __("Operator Name"),
+			fieldtype: "MultiSelectList",
 			options: "Operator Master",
-			
+			get_data: function(txt) {
+				return frappe.db.get_link_options("Operator Master", txt);
+			},
+			reqd: 0,
 		},
 		{
 			fieldname: "Casting_Item_Code",
-			fieldtype: "Link",
-			label: "Casting Item Name",
+			label: __("Casting Item Name"),
+			fieldtype: "MultiSelectList",
 			options: "Item",
+			get_data: function(txt) {
+				return frappe.db.get_link_options("Item", txt);
+			},
+			reqd: 0,
 		},
+		// {
+		// 	fieldname: "operator_name",
+		// 	fieldtype: "Link",
+		// 	label: "Operator Name",
+		// 	options: "Operator Master",
+			
+		// },
+		// {
+		// 	fieldname: "Casting_Item_Code",
+		// 	fieldtype: "Link",
+		// 	label: "Casting Item Name",
+		// 	options: "Item",
+		// },
 
 		// {
 		// 	fieldname: "route",

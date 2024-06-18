@@ -1,5 +1,5 @@
 {
- "add_total_row": 0,
+ "add_total_row": 1,
  "columns": [],
  "creation": "2024-02-21 16:12:06.918694",
  "disable_prepared_report": 0,
@@ -24,20 +24,26 @@
  ],
  "idx": 0,
  "is_standard": "Yes",
- "letter_head": "Header Footer",
- "modified": "2024-03-04 11:23:05.404299",
+ "letter_head": "",
+ "modified": "2024-06-12 13:20:02.324765",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Daily Spectro Analysis Report",
  "owner": "vikas.deshmukh@erpdata.in",
  "prepared_report": 0,
- "query": "select a.name \"ID:Link/Daily Spectro Analysis:120\",a.date \"Date:Date:100\",a.shift \"Shift\",a.supervisor \"Supervisor\",\na.supervisor_name \"Supervisor Name\",\nb.pouring_id \"Pouring:Link/Pouring:120\",\nb.item_code \"Item Code\",b.heat_no \"Heat No\",\nb.c_ \"Std. C\", b.c \"C\",\nb.si_ \"Std. Si\", b.si \"Si\",\nb.Mn_ \"Std. Mn\", b.mn \"Mn\", \nb.s_ \"Std. S\", b.p \"S\",\nb.p_ \"Std. P\", b.s \"P\",\nb.cu_ \"Std. Cu\", b.cu \"Cu\",\nb.mg_ \"Std. Mg\", b.mg \"Mg\",\nb.cr_ \"Std. Cr\", b.cr \"Cr\",\na.company \"Company\"\nfrom \n`tabDaily Spectro Analysis` a\nleft join `tabDaily Spectro Details` b on a.name  =b.parent\n\nwhere a.date between %(from_date)s and %(to_date)s",
+ "query": "select \n    a.name \"ID:Link/Daily Spectro Analysis:120\",\n    a.date \"Date:Date:100\",\n    a.shift \"Shift\", \n    a.supervisor_name \"Supervisor Name\",\n    b.pouring_id \"Pouring:Link/Pouring:120\",\n    b.item_code \"Item Code\",b.heat_no \"Heat No\",\n    b.c_ \"Std. C\", b.c \"C\",\n    b.si_ \"Std. Si\", b.si \"Si\",\n    b.Mn_ \"Std. Mn\", b.mn \"Mn\", \n    b.s_ \"Std. S\", b.p \"S\",\n    b.p_ \"Std. P\", b.s \"P\",\n    b.cu_ \"Std. Cu\", b.cu \"Cu\",\n    b.mg_ \"Std. Mg\", b.mg \"Mg\",\n    b.cr_ \"Std. Cr\", b.cr \"Cr\",\n    a.company \"Company\"\nfrom \n    `tabDaily Spectro Analysis` a\nleft join \n    `tabDaily Spectro Details` b on a.name  =b.parent\nwhere \n    a.date between %(from_date)s and %(to_date)s",
  "ref_doctype": "Daily Spectro Analysis",
  "report_name": "Daily Spectro Analysis Report",
  "report_type": "Query Report",
  "roles": [
   {
    "role": "System Manager"
+  },
+  {
+   "role": "Foundry Operator"
+  },
+  {
+   "role": "Foundry Supervisor"
   }
  ]
 }

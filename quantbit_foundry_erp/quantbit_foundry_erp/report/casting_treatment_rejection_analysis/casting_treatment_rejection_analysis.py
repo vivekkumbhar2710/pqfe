@@ -30,6 +30,20 @@ def get_columns():
 			"width":200
 		},
 		{
+			"fieldname" : "contractor_id",
+			"fieldtype" : "Link",
+			"options" : "Supplier",
+			"label" : "Contractor ID",
+			"precision": 3,
+			"width":150
+		},
+		{
+			"fieldname" : "contractor_name",
+			"fieldtype" : "Data",
+			"label" : "Contractor Name",
+			"width":200		
+		},
+		{
 			"fieldname" : "item_code",
 			"fieldtype" : "Link",
 			"options" : "Item",
@@ -72,20 +86,6 @@ def get_columns():
 			"label" : "Is Scrap"
 		},
 		{
-			"fieldname" : "contractor_id",
-			"fieldtype" : "Link",
-			"options" : "Supplier",
-			"label" : "Contractor ID",
-			"precision": 3,
-			"width":150
-		},
-		{
-			"fieldname" : "contractor_name",
-			"fieldtype" : "Data",
-			"label" : "Contractor Name",
-			"width":200		
-		},
-		{
 			"fieldname" : "company",
 			"fieldtype" : "Data",
 			"label" : "Company"
@@ -102,6 +102,7 @@ def get_data(filters):
 	from_date = filters.get("from_date")
 	to_date = filters.get("to_date")
 	comp = filters.get("company")
+	item = filters.get("item_code")
 	sup_name = filters.get("supervisor")
 	contractor_name = filters.get("contractor")
 	conditions = []
@@ -127,16 +128,20 @@ def get_data(filters):
 						`tabCasting Treatment` c
 					LEFT JOIN
 						`tabCasting Treatment Rejected Items Reasons` r ON c.name = r.parent
-					WHERE
-						c.company = %s AND DATE(c.treatment_date) BETWEEN %s AND %s AND c.docstatus = 1
-					
+					WHERE c.company = %s 
+						AND DATE(c.treatment_date) BETWEEN %s AND %s 
+						AND c.docstatus = 1 
+						AND r.rejection_reason IS NOT NULL					
 				"""
     
 	if sup_name:
-		add_condition(conditions, params, "c.supervisor = %s", sup_name)
+		add_condition(conditions, params, "c.supervisor in %s", sup_name)
+	
+	if item:
+		add_condition(conditions, params, "r.item_code in %s", item)
 	
 	if contractor_name:
-		add_condition(conditions, params, "r.contractor_id = %s", contractor_name)
+		add_condition(conditions, params, "r.contractor_id in %s", contractor_name)
 
 	if conditions:
 		sql_query += " AND " + " AND ".join(conditions)

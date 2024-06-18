@@ -5,11 +5,5 @@ frappe.ui.form.on('Monthly Pouring Schedule', {
 	
 });
 
-// frappe.ui.form.on('Item Pouring Schedule', {
-// 	on_save:function(frm){
-// 		frm.call({
-// 			method:"set_data",
-// 			doc:frm.doc
-// 		})
-// 	}
-// });
+
+

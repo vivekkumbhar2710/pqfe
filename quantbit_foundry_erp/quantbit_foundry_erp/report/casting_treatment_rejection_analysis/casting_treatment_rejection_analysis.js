@@ -23,17 +23,53 @@ frappe.query_reports["Casting Treatment Rejection Analysis"] = {
             "label": "To Date",
 			"reqd" : 1
         },
-		{
-            "fieldname": "supervisor",
-            "fieldtype" : "Link",
-			"options" : "Supervisor Master",
-            "label": "Supervisor"
-	    },
         {
-            "fieldname": "contractor",
-            "fieldtype" : "Link",
-			"options" : "Supplier",
-            "label": "Contractor"
-	    },
+			fieldname: "item_code",
+			label: __("Item Name"),
+			fieldtype: "MultiSelectList",
+			options: "Item",
+			get_data: function(txt) {
+				return frappe.db.get_link_options("Item", txt);
+			},
+			reqd: 0,
+		},
+        {
+			fieldname: "supervisor",
+			label: __("supervisor"),
+			fieldtype: "MultiSelectList",
+			options: "Supervisor Master",
+			get_data: function(txt) {
+				return frappe.db.get_link_options("Supervisor Master", txt);
+			},
+			reqd: 0,
+		},
+        {
+			fieldname: "contractor",
+			label: __("contractor"),
+			fieldtype: "MultiSelectList",
+			options: "Supplier",
+			get_data: function(txt) {
+				return frappe.db.get_link_options("Supplier", txt);
+			},
+			reqd: 0,
+		},
+        // {
+        //     "fieldname": "item_code",
+        //     "fieldtype": "Link",           
+        //     "options": "Item",
+		// 	"label": "Item Name"
+        // },
+		// {
+        //     "fieldname": "supervisor",
+        //     "fieldtype" : "Link",
+		// 	"options" : "Supervisor Master",
+        //     "label": "Supervisor"
+	    // },
+        // {
+        //     "fieldname": "contractor",
+        //     "fieldtype" : "Link",
+		// 	"options" : "Supplier",
+        //     "label": "Contractor"
+	    // },
 	]
 };

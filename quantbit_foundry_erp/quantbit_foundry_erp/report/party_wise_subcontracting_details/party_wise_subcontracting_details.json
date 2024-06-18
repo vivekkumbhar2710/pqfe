@@ -3,7 +3,7 @@
  "columns": [],
  "creation": "2024-04-24 12:24:02.600917",
  "disable_prepared_report": 0,
- "disabled": 0,
+ "disabled": 1,
  "docstatus": 0,
  "doctype": "Report",
  "filters": [
@@ -37,7 +37,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": "",
- "modified": "2024-04-30 18:37:59.160921",
+ "modified": "2024-06-18 22:07:25.494838",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Party wise Subcontracting Details",

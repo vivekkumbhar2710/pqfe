@@ -11,7 +11,7 @@
  "is_standard": "Yes",
  "json": "{}",
  "letter_head": "Phadke  Ferrocast Pvt. Ltd.",
- "modified": "2024-05-13 16:46:49.408373",
+ "modified": "2024-06-12 13:29:28.985812",
  "modified_by": "Administrator",
  "module": "Quantbit Foundry ERP",
  "name": "Daily Dispatch OR Sales Item-wise",
@@ -32,6 +32,12 @@
   },
   {
    "role": "Accounts User"
+  },
+  {
+   "role": "Foundry Operator"
+  },
+  {
+   "role": "Foundry Supervisor"
   }
  ]
 }
